@@ -1,0 +1,10 @@
+# This file removes the need to manually set build settings in the
+# Netlify dashboard for every new client site — the exact problem you
+# hit earlier with the "_site" publish directory. With this file present,
+# a fresh "Import an existing project" deploy configures itself correctly
+# the first time, every time.
+
+[build]
+  publish = "."
+  functions = "netlify/functions"
+  command = ""
