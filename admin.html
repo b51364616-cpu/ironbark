@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workshop editor — Ironbark Motor Works</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#15222C;--ink-2:#1D303D;--ink-3:#27404F;
+  --amber:#FFB223;--amber-deep:#D98A00;
+  --concrete:#DEDCD6;--paper:#F6F5F2;
+  --steel:#7C8C97;--steel-dim:#A8B4BC;--go:#2E9E5B;--warn:#C42D2D;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Archivo',system-ui,sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-variation-settings:'wdth' 84,'wght' 800;line-height:1.05;margin:0}
+h1{font-size:1.4rem}h2{font-size:1.25rem}h3{font-size:1rem;font-variation-settings:'wdth' 90,'wght' 750}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+
+/* login */
+#gate{position:fixed;inset:0;background:var(--ink);display:grid;place-items:center;z-index:50;padding:1.5rem}
+#gate .box{width:100%;max-width:360px;text-align:center}
+#gate h1{color:#fff;font-size:1.6rem;margin-bottom:.4rem}
+#gate p{color:var(--steel);font-size:.9rem;margin:0 0 1.5rem}
+#gate input{width:100%;padding:.85rem;background:var(--ink-2);border:1px solid rgba(222,220,214,.22);color:#fff;font-family:inherit;font-size:1rem;text-align:center;letter-spacing:.1em}
+#gate input:focus{border-color:var(--amber);outline:none}
+#gate .err{color:#FF8E8E;font-size:.85rem;margin-top:.75rem;min-height:1.2em}
+.cog{width:44px;height:44px;fill:var(--amber);margin-bottom:1rem}
+
+/* chrome */
+header{position:sticky;top:0;z-index:20;background:var(--ink);color:var(--concrete);border-bottom:2px solid var(--amber)}
+.bar{max-width:1500px;margin:0 auto;padding:.75rem 1.25rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.bar h1{color:#fff;margin-right:auto;font-size:1.05rem}
+.bar h1 small{display:block;font-size:.7rem;color:var(--steel);letter-spacing:.12em;font-variation-settings:'wdth' 100,'wght' 500}
+.saved{font-size:.8rem;color:var(--steel);min-width:9rem;text-align:right}
+.saved.ok{color:var(--go)}
+
+.btn{display:inline-flex;align-items:center;gap:.45rem;padding:.6rem 1.05rem;border:none;cursor:pointer;font-family:inherit;font-size:.87rem;font-variation-settings:'wdth' 92,'wght' 700;background:var(--amber);color:var(--ink);text-decoration:none;transition:filter .15s,transform .15s}
+.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--concrete);box-shadow:inset 0 0 0 1.5px rgba(222,220,214,.35)}
+.btn.ghost:hover{background:rgba(222,220,214,.1)}
+.btn.sm{padding:.4rem .7rem;font-size:.78rem}
+.btn.danger{background:transparent;color:var(--warn);box-shadow:inset 0 0 0 1.5px rgba(196,45,45,.4)}
+.btn.dark{background:var(--ink);color:var(--paper)}
+.btn[disabled]{opacity:.5;pointer-events:none}
+
+/* tabs */
+.tabs{background:var(--ink-2);border-bottom:1px solid rgba(222,220,214,.12);overflow-x:auto}
+.tabs-in{max-width:1500px;margin:0 auto;display:flex;padding:0 1.25rem}
+.tab{background:none;border:none;cursor:pointer;font-family:inherit;font-size:.86rem;color:var(--steel-dim);padding:.85rem 1rem;white-space:nowrap;border-bottom:3px solid transparent;font-variation-settings:'wght' 600}
+.tab:hover{color:#fff}
+.tab.on{color:var(--amber);border-bottom-color:var(--amber)}
+
+/* layout */
+main{max-width:1500px;margin:0 auto;padding:1.5rem 1.25rem 5rem;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,460px);gap:1.75rem;align-items:start}
+@media (max-width:1150px){main{grid-template-columns:1fr}.preview{display:none}}
+
+.panel{display:none}
+.panel.on{display:block}
+.hint{background:#fff;border-left:3px solid var(--amber);padding:.8rem 1rem;font-size:.87rem;color:#4A5A66;margin-bottom:1.25rem}
+.hint b{color:var(--ink)}
+
+.item{background:#fff;border:1px solid rgba(21,34,44,.14);padding:1.1rem;margin-bottom:.85rem;position:relative}
+.item-head{display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem}
+.item-head .n{width:24px;height:24px;display:grid;place-items:center;background:var(--ink);color:var(--amber);font-size:.75rem;font-variation-settings:'wght' 800;flex:none}
+.item-head h3{margin-right:auto}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem}
+@media (max-width:700px){.grid2,.grid3{grid-template-columns:1fr}}
+
+label{display:block;font-size:.74rem;color:#5E6E7A;margin-bottom:.25rem;font-variation-settings:'wght' 650;letter-spacing:.02em}
+input[type=text],input[type=tel],input[type=email],input[type=url],input[type=time],select,textarea{
+  width:100%;padding:.55rem .65rem;border:1px solid rgba(21,34,44,.22);background:var(--paper);
+  font-family:inherit;font-size:.92rem;color:var(--ink);border-radius:2px;
+}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--amber);background:#fff;box-shadow:0 0 0 3px rgba(255,178,35,.16)}
+textarea{resize:vertical;min-height:74px;line-height:1.5}
+.fld{margin-bottom:.75rem}
+.chk{display:flex;align-items:center;gap:.5rem;font-size:.88rem;margin-top:1.4rem}
+.chk input{width:17px;height:17px;accent-color:var(--amber-deep)}
+
+input[type=range]{width:100%;accent-color:var(--amber-deep)}
+.rangeval{font-variation-settings:'wght' 800;font-size:.9rem;color:var(--amber-deep);min-width:3rem;text-align:right}
+.rangewrap{display:flex;align-items:center;gap:.75rem}
+
+.tagrow{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.4rem}
+.taged{display:flex;align-items:center;gap:.3rem;background:var(--concrete);padding:.2rem .3rem .2rem .55rem;font-size:.78rem}
+.taged button{border:none;background:none;cursor:pointer;color:#5E6E7A;font-size:1rem;line-height:1;padding:0 .2rem}
+.taged button:hover{color:var(--warn)}
+
+.addrow{display:flex;gap:.5rem;margin-top:.6rem}
+.addrow input{flex:1}
+
+.listrow{display:flex;gap:.5rem;margin-bottom:.4rem;align-items:center}
+.listrow input{flex:1}
+
+.hoursrow{display:grid;grid-template-columns:110px 1fr 1fr 100px;gap:.6rem;align-items:end;margin-bottom:.5rem}
+@media (max-width:700px){.hoursrow{grid-template-columns:1fr 1fr}}
+
+/* preview */
+.preview{position:sticky;top:120px}
+.preview h3{margin-bottom:.6rem}
+.phone{border:10px solid var(--ink);border-radius:22px;overflow:hidden;background:var(--ink);box-shadow:0 20px 50px rgba(21,34,44,.2)}
+.phone iframe{width:100%;height:620px;border:none;display:block;background:var(--paper)}
+.prevbar{display:flex;gap:.5rem;margin-bottom:.6rem;align-items:center}
+.prevbar span{font-size:.78rem;color:#5E6E7A;margin-right:auto}
+
+/* save bar */
+.savebar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--ink);border-top:2px solid var(--amber);padding:.75rem 1.25rem}
+.savebar-in{max-width:1500px;margin:0 auto;display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.savebar .msg{color:var(--steel-dim);font-size:.83rem;margin-right:auto}
+.savebar .msg b{color:var(--amber)}
+
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(15,26,34,.72);display:none;place-items:center;z-index:60;padding:1.25rem}
+.modal.on{display:grid}
+.modal-box{background:var(--paper);max-width:560px;width:100%;padding:1.75rem;max-height:88vh;overflow:auto}
+.modal-box h2{margin-bottom:.5rem}
+.modal-box p{font-size:.9rem;color:#4A5A66;margin:0 0 1rem}
+.modal-box code{background:var(--concrete);padding:.1rem .3rem;font-size:.85em}
+.modal-actions{display:flex;gap:.6rem;margin-top:1.25rem;flex-wrap:wrap}
+pre{background:var(--ink);color:var(--concrete);padding:1rem;overflow:auto;max-height:280px;font-size:.78rem;line-height:1.45}
+.steps{counter-reset:s;list-style:none;padding:0;margin:0 0 1rem}
+.steps li{counter-increment:s;position:relative;padding-left:2rem;margin-bottom:.7rem;font-size:.9rem;color:#4A5A66}
+.steps li::before{content:counter(s);position:absolute;left:0;top:.1rem;width:1.35rem;height:1.35rem;background:var(--ink);color:var(--amber);display:grid;place-items:center;font-size:.72rem;font-variation-settings:'wght' 800}
+.ok{color:var(--go);font-variation-settings:'wght' 700}
+.bad{color:var(--warn);font-variation-settings:'wght' 700}
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="box">
+    <svg class="cog" viewBox="0 0 24 24"><path d="M12 8.4a3.6 3.6 0 1 0 0 7.2 3.6 3.6 0 0 0 0-7.2Zm9.1 5.2.1-1.6-.1-1.6-2.1-.4a7 7 0 0 0-.7-1.7l1.2-1.8a9.6 9.6 0 0 0-2.2-2.2l-1.8 1.2a7 7 0 0 0-1.7-.7L13.4 2a9.7 9.7 0 0 0-2.8 0l-.4 2.1a7 7 0 0 0-1.7.7L6.7 3.6a9.6 9.6 0 0 0-2.2 2.2l1.2 1.8a7 7 0 0 0-.7 1.7L2.9 10a9.7 9.7 0 0 0 0 2.8l2.1.4c.16.6.4 1.17.7 1.7l-1.2 1.8a9.6 9.6 0 0 0 2.2 2.2l1.8-1.2c.53.3 1.1.54 1.7.7l.4 2.1a9.7 9.7 0 0 0 2.8 0l.4-2.1a7 7 0 0 0 1.7-.7l1.8 1.2a9.6 9.6 0 0 0 2.2-2.2l-1.2-1.8c.3-.53.54-1.1.7-1.7l2.1-.4Z"/></svg>
+    <h1>Workshop editor</h1>
+    <p>Enter the workshop passcode</p>
+    <input id="pass" type="password" inputmode="numeric" placeholder="••••" autocomplete="off">
+    <div class="err" id="gateErr"></div>
+  </div>
+</div>
+
+<header>
+  <div class="bar">
+    <h1>Ironbark Motor Works<small>WEBSITE EDITOR</small></h1>
+    <span class="saved" id="savedMsg"></span>
+    <a class="btn ghost sm" href="index.html" target="_blank">View site</a>
+  </div>
+</header>
+
+<div class="tabs"><div class="tabs-in" id="tabs"></div></div>
+
+<main>
+  <div>
+    <section class="panel on" data-panel="bays">
+      <div class="hint"><b>This is the one you'll touch most.</b> Update it when a car goes on or comes off the hoist. Takes about twenty seconds on your phone. Leave it stale and it does more harm than good — if you won't update it daily, tick "hide the board" at the bottom.</div>
+      <div id="baysEditor"></div>
+      <div class="grid2" style="margin-top:1rem">
+        <div class="fld"><label>Next available booking</label><input type="text" id="nextSlot" placeholder="auto"><div style="font-size:.75rem;color:#5E6E7A;margin-top:.25rem">Type <code>auto</code> to always show two working days ahead.</div></div>
+        <div class="fld"><label>After-hours note</label><input type="text" id="afterHoursNote"></div>
+      </div>
+    </section>
+
+    <section class="panel" data-panel="details">
+      <div class="hint">Phone, address and hours. Changing hours here also changes the "Open now / Closed" light in the top corner of the site.</div>
+      <div class="item">
+        <div class="item-head"><h3>Business details</h3></div>
+        <div class="grid2">
+          <div class="fld"><label>Business name</label><input type="text" data-path="business.name"></div>
+          <div class="fld"><label>Suburb line</label><input type="text" data-path="business.suburb"></div>
+          <div class="fld"><label>Phone (as displayed)</label><input type="text" data-path="business.phone"></div>
+          <div class="fld"><label>Phone (dial format)</label><input type="tel" data-path="business.phoneLink"></div>
+          <div class="fld"><label>Email</label><input type="email" data-path="business.email"></div>
+          <div class="fld"><label>Google Maps link</label><input type="url" data-path="business.mapUrl"></div>
+          <div class="fld"><label>Address line 1</label><input type="text" data-path="business.addressLine1"></div>
+          <div class="fld"><label>Address line 2</label><input type="text" data-path="business.addressLine2"></div>
+          <div class="fld"><label>Finding us</label><input type="text" data-path="business.directions"></div>
+          <div class="fld"><label>ABN</label><input type="text" data-path="business.abn"></div>
+          <div class="fld"><label>Inspection station no.</label><input type="text" data-path="business.ais"></div>
+          <div class="fld"><label>Membership line</label><input type="text" data-path="business.membership"></div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-head"><h3>Opening hours</h3></div>
+        <div id="hoursEditor"></div>
+      </div>
+      <div class="item">
+        <div class="item-head"><h3>Suburbs you serve</h3></div>
+        <div id="suburbsEditor"></div>
+      </div>
+      <div class="item">
+        <div class="item-head"><h3>Scrolling banner</h3></div>
+        <div id="stripEditor"></div>
+      </div>
+    </section>
+
+    <section class="panel" data-panel="hero">
+      <div class="hint">The first thing anyone reads. Keep the headline to one sentence about what makes you different, not "Welcome to our website".</div>
+      <div class="item">
+        <div class="fld"><label>Headline</label><textarea data-path="hero.headline"></textarea></div>
+        <div class="fld"><label>Opening paragraph</label><textarea data-path="hero.lede"></textarea></div>
+      </div>
+      <div class="item">
+        <div class="item-head"><h3>The four numbers</h3></div>
+        <div id="statsEditor"></div>
+      </div>
+    </section>
+
+    <section class="panel" data-panel="services">
+      <div class="hint">Add a <code>*</code> at the end of a tag to make it stand out in dark. Prices show as typed, so include the dollar sign.</div>
+      <div id="servicesEditor"></div>
+      <button class="btn dark" id="addService">Add a service</button>
+    </section>
+
+    <section class="panel" data-panel="pricing">
+      <div class="hint">Three service levels. One can be flagged as most popular.</div>
+      <div id="tiersEditor"></div>
+    </section>
+
+    <section class="panel" data-panel="team">
+      <div class="hint">Initials show on the card. A photo works better — send them to your web person and they'll swap the initials for the picture.</div>
+      <div id="teamEditor"></div>
+      <button class="btn dark" id="addPerson">Add a person</button>
+    </section>
+
+    <section class="panel" data-panel="reviews">
+      <div class="hint">Only paste reviews people actually left you. Copy them word for word from Google.</div>
+      <div id="reviewsEditor"></div>
+      <button class="btn dark" id="addReview">Add a review</button>
+    </section>
+
+    <section class="panel" data-panel="faq">
+      <div class="hint">Every question here is one less phone call. Add the ones you answer over and over.</div>
+      <div id="faqEditor"></div>
+      <button class="btn dark" id="addFaq">Add a question</button>
+    </section>
+
+    <section class="panel" data-panel="publish">
+      <div class="hint">Changes are saved on this device as you type. To put them on the live website, publish.</div>
+
+      <div class="item">
+        <div class="item-head"><h3>Publish to the live site</h3></div>
+        <p style="font-size:.9rem;color:#4A5A66">Connected to GitHub, this writes the change straight to your site and it goes live in under a minute.</p>
+        <div class="grid2">
+          <div class="fld"><label>GitHub owner / repo</label><input type="text" id="ghRepo" placeholder="yourname/ironbark-site"></div>
+          <div class="fld"><label>Branch</label><input type="text" id="ghBranch" placeholder="main"></div>
+        </div>
+        <div class="fld"><label>Access token (fine-grained, Contents: read &amp; write, this repo only)</label><input type="password" id="ghToken" placeholder="github_pat_…"></div>
+        <div class="modal-actions">
+          <button class="btn" id="ghPublish">Publish now</button>
+          <button class="btn dark" id="ghSaveCreds">Remember on this device</button>
+        </div>
+        <p id="ghStatus" style="font-size:.87rem;margin-top:.9rem"></p>
+      </div>
+
+      <div class="item">
+        <div class="item-head"><h3>Or send the file to your web person</h3></div>
+        <p style="font-size:.9rem;color:#4A5A66">Download the updated content file and email it over. They'll upload it for you.</p>
+        <div class="modal-actions">
+          <button class="btn dark" id="download">Download content.json</button>
+          <button class="btn dark" id="copyJson">Copy to clipboard</button>
+          <button class="btn danger" id="reset">Undo all my changes</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <aside class="preview">
+    <div class="prevbar"><span>Live preview</span><button class="btn ghost sm dark" id="refreshPrev">Refresh</button></div>
+    <div class="phone"><iframe id="prev" title="Site preview" src="index.html"></iframe></div>
+  </aside>
+</main>
+
+<div class="savebar">
+  <div class="savebar-in">
+    <span class="msg" id="saveMsg">Changes save automatically on this device. Go to <b>Publish</b> to put them live.</span>
+    <button class="btn ghost" id="previewBtn">Preview site</button>
+    <button class="btn" id="jumpPublish">Publish changes</button>
+  </div>
+</div>
+
+<div class="modal" id="modal"><div class="modal-box" id="modalBox"></div></div>
+
+<script>
+(function(){
+'use strict';
+
+/* ---------------------------------------------------------------
+   Passcode. This gate stops a customer wandering in — it is NOT
+   real security, because anyone can read this file. For a site
+   holding anything sensitive, protect /admin at the host instead
+   (Netlify Identity, Cloudflare Access, or HTTP basic auth).
+   --------------------------------------------------------------- */
+var PASSCODE = '4060';
+
+var STORE = 'ironbark-content';
+var CREDS = 'ironbark-gh';
+var data = null, original = null;
+
+function $(s,r){ return (r||document).querySelector(s); }
+function $$(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); }
+function esc(t){ var d=document.createElement('div'); d.textContent=t==null?'':String(t); return d.innerHTML; }
+function dig(o,p){ return p.split('.').reduce(function(a,k){ return a&&a[k]; }, o); }
+function put(o,p,v){
+  var ks=p.split('.'), last=ks.pop();
+  ks.reduce(function(a,k){ return a[k]=a[k]||{}; }, o)[last]=v;
+}
+
+/* ---------- gate ---------- */
+var gate = $('#gate'), pass = $('#pass');
+if(sessionStorage.getItem('ironbark-auth')==='1'){ gate.style.display='none'; }
+else { setTimeout(function(){ pass.focus(); }, 200); }
+pass.addEventListener('keydown', function(e){
+  if(e.key!=='Enter') return;
+  if(pass.value === PASSCODE){
+    sessionStorage.setItem('ironbark-auth','1');
+    gate.style.display='none';
+  } else {
+    $('#gateErr').textContent = 'Not that one. Try again.';
+    pass.value=''; pass.focus();
+  }
+});
+
+/* ---------- load ---------- */
+function boot(){
+  fetch('content.json',{cache:'no-store'})
+    .then(function(r){ return r.ok?r.json():Promise.reject(); })
+    .then(function(j){ original = JSON.parse(JSON.stringify(j)); start(j); })
+    .catch(function(){
+      var local=null;
+      try{ local=JSON.parse(localStorage.getItem(STORE)); }catch(e){}
+      if(local){ original=JSON.parse(JSON.stringify(local)); start(local); }
+      else {
+        document.querySelector('main').innerHTML =
+          '<div class="hint" style="border-color:var(--warn)"><b>Can\u2019t read content.json.</b> ' +
+          'Open this page through a web address rather than by double-clicking the file. ' +
+          'On your own machine, run <code>python3 -m http.server</code> in this folder and visit ' +
+          '<code>localhost:8000/admin.html</code>.</div>';
+      }
+    });
+}
+function start(j){
+  var local=null;
+  try{ local=JSON.parse(localStorage.getItem(STORE)); }catch(e){}
+  data = local && local.business ? local : j;
+  buildTabs(); bindFields(); renderAll(); loadCreds();
+}
+
+/* ---------- tabs ---------- */
+var TABS = [
+  ['bays','In the workshop'],['details','Details & hours'],['hero','Front page'],
+  ['services','Services'],['pricing','Pricing'],['team','Team'],
+  ['reviews','Reviews'],['faq','Questions'],['publish','Publish']
+];
+function buildTabs(){
+  $('#tabs').innerHTML = TABS.map(function(t,i){
+    return '<button class="tab'+(i===0?' on':'')+'" data-tab="'+t[0]+'">'+esc(t[1])+'</button>';
+  }).join('');
+  $$('.tab').forEach(function(b){
+    b.addEventListener('click', function(){
+      $$('.tab').forEach(function(x){ x.classList.remove('on'); });
+      b.classList.add('on');
+      $$('.panel').forEach(function(p){ p.classList.toggle('on', p.dataset.panel===b.dataset.tab); });
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+}
+function goTab(name){ var b = $('.tab[data-tab="'+name+'"]'); if(b) b.click(); }
+
+/* ---------- save ---------- */
+var saveTimer=null;
+function save(){
+  localStorage.setItem(STORE, JSON.stringify(data));
+  var m=$('#savedMsg'); m.textContent='Saved'; m.classList.add('ok');
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(function(){ m.textContent=''; m.classList.remove('ok'); refreshPreview(); }, 700);
+}
+function refreshPreview(){
+  var f=$('#prev'); if(f) f.contentWindow.location.reload();
+}
+$('#refreshPrev').addEventListener('click', refreshPreview);
+$('#previewBtn').addEventListener('click', function(){ window.open('index.html','_blank'); });
+$('#jumpPublish').addEventListener('click', function(){ goTab('publish'); });
+
+/* ---------- simple bound fields ---------- */
+function bindFields(){
+  $$('[data-path]').forEach(function(el){
+    var v = dig(data, el.dataset.path);
+    if(v!=null) el.value = v;
+    el.addEventListener('input', function(){ put(data, el.dataset.path, el.value); save(); });
+  });
+  $('#nextSlot').value = data.nextSlot||'auto';
+  $('#nextSlot').addEventListener('input', function(){ data.nextSlot=this.value||'auto'; save(); });
+  $('#afterHoursNote').value = data.afterHoursNote||'';
+  $('#afterHoursNote').addEventListener('input', function(){ data.afterHoursNote=this.value; save(); });
+}
+
+/* ---------- generic helpers ---------- */
+function field(label, val, oninput, type){
+  var w=document.createElement('div'); w.className='fld';
+  w.innerHTML='<label>'+esc(label)+'</label>';
+  var i=document.createElement(type==='area'?'textarea':'input');
+  if(type && type!=='area') i.type=type;
+  i.value = val==null?'':val;
+  i.addEventListener('input', function(){ oninput(i.value); save(); });
+  w.appendChild(i);
+  return w;
+}
+function itemShell(title, n, onDelete){
+  var d=document.createElement('div'); d.className='item';
+  var h=document.createElement('div'); h.className='item-head';
+  h.innerHTML = (n!=null?'<span class="n">'+esc(n)+'</span>':'') + '<h3>'+esc(title)+'</h3>';
+  if(onDelete){
+    var b=document.createElement('button'); b.className='btn danger sm'; b.textContent='Remove';
+    b.addEventListener('click', onDelete); h.appendChild(b);
+  }
+  d.appendChild(h);
+  return d;
+}
+function stringList(container, arr, placeholder, onChange){
+  container.innerHTML='';
+  arr.forEach(function(v,i){
+    var row=document.createElement('div'); row.className='listrow';
+    var inp=document.createElement('input'); inp.type='text'; inp.value=v;
+    inp.addEventListener('input', function(){ arr[i]=inp.value; save(); });
+    var del=document.createElement('button'); del.className='btn danger sm'; del.textContent='×';
+    del.addEventListener('click', function(){ arr.splice(i,1); onChange(); save(); });
+    row.appendChild(inp); row.appendChild(del); container.appendChild(row);
+  });
+  var add=document.createElement('div'); add.className='addrow';
+  var ni=document.createElement('input'); ni.type='text'; ni.placeholder=placeholder;
+  var nb=document.createElement('button'); nb.className='btn dark sm'; nb.textContent='Add';
+  function commit(){ if(!ni.value.trim()) return; arr.push(ni.value.trim()); onChange(); save(); }
+  nb.addEventListener('click', commit);
+  ni.addEventListener('keydown', function(e){ if(e.key==='Enter'){ e.preventDefault(); commit(); } });
+  add.appendChild(ni); add.appendChild(nb); container.appendChild(add);
+}
+
+/* ---------- bays ---------- */
+function renderBays(){
+  var c=$('#baysEditor'); c.innerHTML='';
+  data.bays.forEach(function(bay,i){
+    var d=itemShell('Bay '+bay.no, bay.no, data.bays.length>1?function(){ data.bays.splice(i,1); renderBays(); save(); }:null);
+    var g=document.createElement('div'); g.className='grid2';
+    g.appendChild(field('Vehicle', bay.vehicle, function(v){ bay.vehicle=v; }));
+    g.appendChild(field('Job', bay.job, function(v){ bay.job=v; }));
+    d.appendChild(g);
+
+    var g2=document.createElement('div'); g2.className='grid2';
+    var st=document.createElement('div'); st.className='fld';
+    st.innerHTML='<label>Status</label>';
+    var sel=document.createElement('select');
+    ['Booked in','On the hoist','Diagnosing','Waiting on parts','Being repaired','Road test','Ready for pickup','Walk-ins ok'].forEach(function(o){
+      var op=document.createElement('option'); op.textContent=o; if(o===bay.state) op.selected=true; sel.appendChild(op);
+    });
+    sel.addEventListener('change', function(){ bay.state=sel.value; save(); });
+    st.appendChild(sel); g2.appendChild(st);
+
+    var pr=document.createElement('div'); pr.className='fld';
+    pr.innerHTML='<label>How far through</label>';
+    var rw=document.createElement('div'); rw.className='rangewrap';
+    var rg=document.createElement('input'); rg.type='range'; rg.min=0; rg.max=100; rg.step=1; rg.value=bay.progress||0;
+    var rv=document.createElement('span'); rv.className='rangeval'; rv.textContent=(bay.progress||0)+'%';
+    rg.addEventListener('input', function(){ bay.progress=+rg.value; rv.textContent=rg.value+'%'; save(); });
+    rw.appendChild(rg); rw.appendChild(rv); pr.appendChild(rw); g2.appendChild(pr);
+    d.appendChild(g2);
+
+    var ck=document.createElement('label'); ck.className='chk';
+    var cb=document.createElement('input'); cb.type='checkbox'; cb.checked=!!bay.free;
+    cb.addEventListener('change', function(){ bay.free=cb.checked; save(); });
+    ck.appendChild(cb); ck.appendChild(document.createTextNode('This bay is free — show it in green'));
+    d.appendChild(ck);
+
+    c.appendChild(d);
+  });
+  var add=document.createElement('button'); add.className='btn dark'; add.textContent='Add a bay';
+  add.addEventListener('click', function(){
+    data.bays.push({no:data.bays.length+1,vehicle:'',job:'',state:'Booked in',progress:0,free:false});
+    renderBays(); save();
+  });
+  c.appendChild(add);
+}
+
+/* ---------- hours ---------- */
+function renderHours(){
+  var c=$('#hoursEditor'); c.innerHTML='';
+  data.hours.forEach(function(h){
+    var row=document.createElement('div'); row.className='hoursrow';
+    row.innerHTML='<div style="font-variation-settings:\'wght\' 700;padding-bottom:.55rem">'+esc(h.day)+'</div>';
+    var o=field('Opens', h.open, function(v){ h.open=v; }, 'time');
+    var cl=field('Closes', h.close, function(v){ h.close=v; }, 'time');
+    row.appendChild(o); row.appendChild(cl);
+    var ck=document.createElement('label'); ck.className='chk'; ck.style.marginTop='0'; ck.style.paddingBottom='.55rem';
+    var cb=document.createElement('input'); cb.type='checkbox'; cb.checked=!!h.closed;
+    cb.addEventListener('change', function(){
+      h.closed=cb.checked;
+      o.querySelector('input').disabled=cb.checked;
+      cl.querySelector('input').disabled=cb.checked;
+      save();
+    });
+    o.querySelector('input').disabled=!!h.closed;
+    cl.querySelector('input').disabled=!!h.closed;
+    ck.appendChild(cb); ck.appendChild(document.createTextNode('Closed'));
+    row.appendChild(ck);
+    c.appendChild(row);
+  });
+}
+
+/* ---------- hero stats ---------- */
+function renderStats(){
+  var c=$('#statsEditor'); c.innerHTML='';
+  data.hero.stats.forEach(function(s){
+    var d=document.createElement('div'); d.className='grid3';
+    d.appendChild(field('Number', s.value, function(v){ s.value=v; }));
+    d.appendChild(field('After it (e.g. " yrs")', s.suffix||'', function(v){ s.suffix=v; }));
+    d.appendChild(field('Caption', s.label, function(v){ s.label=v; }));
+    c.appendChild(d);
+  });
+}
+
+/* ---------- services ---------- */
+function renderServices(){
+  var c=$('#servicesEditor'); c.innerHTML='';
+  data.services.forEach(function(s,i){
+    var d=itemShell(s.title||'Untitled service', i+1, function(){ data.services.splice(i,1); renderServices(); save(); });
+    d.appendChild(field('Name', s.title, function(v){ s.title=v; }));
+    d.appendChild(field('Description', s.blurb, function(v){ s.blurb=v; }, 'area'));
+    var g=document.createElement('div'); g.className='grid2';
+    g.appendChild(field('Price', s.price, function(v){ s.price=v; }));
+    g.appendChild(field('Under the price', s.priceNote, function(v){ s.priceNote=v; }));
+    d.appendChild(g);
+    var tl=document.createElement('div'); tl.className='fld';
+    tl.innerHTML='<label>Tags</label>';
+    var host=document.createElement('div');
+    s.tags = s.tags||[];
+    (function redo(){ stringList(host, s.tags, 'e.g. Same day*', redo); })();
+    tl.appendChild(host); d.appendChild(tl);
+    c.appendChild(d);
+  });
+}
+$('#addService').addEventListener('click', function(){
+  data.services.push({title:'New service',blurb:'',price:'$0',priceNote:'from',tags:[]});
+  renderServices(); save();
+});
+
+/* ---------- tiers ---------- */
+function renderTiers(){
+  var c=$('#tiersEditor'); c.innerHTML='';
+  data.tiers.forEach(function(t,i){
+    var d=itemShell(t.name, i+1, null);
+    var g=document.createElement('div'); g.className='grid3';
+    g.appendChild(field('Name', t.name, function(v){ t.name=v; }));
+    g.appendChild(field('Price', t.amount, function(v){ t.amount=v; }));
+    g.appendChild(field('How often', t.per, function(v){ t.per=v; }));
+    d.appendChild(g);
+    var g2=document.createElement('div'); g2.className='grid2';
+    g2.appendChild(field('Badge (leave blank for none)', t.flag||'', function(v){ t.flag=v; }));
+    var ck=document.createElement('label'); ck.className='chk';
+    var cb=document.createElement('input'); cb.type='checkbox'; cb.checked=!!t.featured;
+    cb.addEventListener('change', function(){
+      data.tiers.forEach(function(x){ x.featured=false; });
+      t.featured=cb.checked; renderTiers(); save();
+    });
+    ck.appendChild(cb); ck.appendChild(document.createTextNode('Highlight this one'));
+    g2.appendChild(ck); d.appendChild(g2);
+    var wrap=document.createElement('div'); wrap.className='fld'; wrap.innerHTML='<label>What\u2019s included</label>';
+    var host=document.createElement('div');
+    (function redo(){ stringList(host, t.includes, 'Add an inclusion', redo); })();
+    wrap.appendChild(host); d.appendChild(wrap);
+    c.appendChild(d);
+  });
+}
+
+/* ---------- team ---------- */
+function renderTeam(){
+  var c=$('#teamEditor'); c.innerHTML='';
+  data.team.forEach(function(p,i){
+    var d=itemShell(p.name||'New person', i+1, function(){ data.team.splice(i,1); renderTeam(); save(); });
+    var g=document.createElement('div'); g.className='grid3';
+    g.appendChild(field('Name', p.name, function(v){ p.name=v; }));
+    g.appendChild(field('Initials', p.initials, function(v){ p.initials=v.toUpperCase().slice(0,3); }));
+    g.appendChild(field('Job title', p.role, function(v){ p.role=v; }));
+    d.appendChild(g);
+    d.appendChild(field('About them', p.bio, function(v){ p.bio=v; }, 'area'));
+    c.appendChild(d);
+  });
+}
+$('#addPerson').addEventListener('click', function(){
+  data.team.push({initials:'AB',name:'New person',role:'',bio:''}); renderTeam(); save();
+});
+
+/* ---------- reviews ---------- */
+function renderReviews(){
+  var c=$('#reviewsEditor'); c.innerHTML='';
+  data.reviews.forEach(function(r,i){
+    var d=itemShell(r.name||'New review', i+1, function(){ data.reviews.splice(i,1); renderReviews(); save(); });
+    d.appendChild(field('What they wrote', r.text, function(v){ r.text=v; }, 'area'));
+    var g=document.createElement('div'); g.className='grid3';
+    g.appendChild(field('Their name', r.name, function(v){ r.name=v; }));
+    g.appendChild(field('Suburb', r.suburb, function(v){ r.suburb=v; }));
+    g.appendChild(field('Rego shown', r.plate, function(v){ r.plate=v; }));
+    d.appendChild(g);
+    c.appendChild(d);
+  });
+}
+$('#addReview').addEventListener('click', function(){
+  data.reviews.push({stars:5,text:'',name:'',suburb:'',plate:''}); renderReviews(); save();
+});
+
+/* ---------- faq ---------- */
+function renderFaq(){
+  var c=$('#faqEditor'); c.innerHTML='';
+  data.faq.forEach(function(f,i){
+    var d=itemShell('Question '+(i+1), i+1, function(){ data.faq.splice(i,1); renderFaq(); save(); });
+    d.appendChild(field('Question', f.q, function(v){ f.q=v; }));
+    d.appendChild(field('Answer', f.a, function(v){ f.a=v; }, 'area'));
+    c.appendChild(d);
+  });
+}
+$('#addFaq').addEventListener('click', function(){
+  data.faq.push({q:'',a:''}); renderFaq(); save();
+});
+
+/* ---------- suburbs / strip ---------- */
+function renderSuburbs(){ (function redo(){ stringList($('#suburbsEditor'), data.suburbs, 'Add a suburb', redo); })(); }
+function renderStrip(){ (function redo(){ stringList($('#stripEditor'), data.strip, 'Add a banner line', redo); })(); }
+
+function renderAll(){
+  renderBays(); renderHours(); renderStats(); renderServices();
+  renderTiers(); renderTeam(); renderReviews(); renderFaq();
+  renderSuburbs(); renderStrip();
+}
+
+/* ---------- download / copy / reset ---------- */
+function json(){ return JSON.stringify(data, null, 2); }
+$('#download').addEventListener('click', function(){
+  var blob=new Blob([json()],{type:'application/json'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob); a.download='content.json'; a.click();
+  URL.revokeObjectURL(a.href);
+});
+$('#copyJson').addEventListener('click', function(){
+  navigator.clipboard.writeText(json()).then(function(){
+    $('#ghStatus').innerHTML='<span class="ok">Copied. Paste it into content.json.</span>';
+  });
+});
+$('#reset').addEventListener('click', function(){
+  showModal('<h2>Undo everything?</h2><p>This throws away every change you\u2019ve made on this device and goes back to what\u2019s currently on the live site.</p>'+
+    '<div class="modal-actions"><button class="btn danger" id="reallyReset">Yes, undo it all</button><button class="btn dark" id="cancelReset">Keep my changes</button></div>');
+  $('#reallyReset').addEventListener('click', function(){
+    localStorage.removeItem(STORE);
+    data=JSON.parse(JSON.stringify(original));
+    bindFields(); renderAll(); closeModal(); refreshPreview();
+  });
+  $('#cancelReset').addEventListener('click', closeModal);
+});
+
+/* ---------- GitHub publish ---------- */
+function loadCreds(){
+  var c=null; try{ c=JSON.parse(localStorage.getItem(CREDS)); }catch(e){}
+  if(!c) return;
+  $('#ghRepo').value=c.repo||''; $('#ghBranch').value=c.branch||'main'; $('#ghToken').value=c.token||'';
+}
+$('#ghSaveCreds').addEventListener('click', function(){
+  localStorage.setItem(CREDS, JSON.stringify({repo:$('#ghRepo').value.trim(), branch:($('#ghBranch').value.trim()||'main'), token:$('#ghToken').value.trim()}));
+  $('#ghStatus').innerHTML='<span class="ok">Saved on this device.</span>';
+});
+$('#ghPublish').addEventListener('click', function(){
+  var repo=$('#ghRepo').value.trim(), branch=$('#ghBranch').value.trim()||'main', token=$('#ghToken').value.trim();
+  var st=$('#ghStatus');
+  if(!repo || !token){ st.innerHTML='<span class="bad">Fill in the repo and the token first.</span>'; return; }
+  st.textContent='Publishing…';
+  var api='https://api.github.com/repos/'+repo+'/contents/content.json';
+  var headers={ 'Authorization':'Bearer '+token, 'Accept':'application/vnd.github+json' };
+
+  fetch(api+'?ref='+encodeURIComponent(branch),{headers:headers})
+    .then(function(r){ return r.ok ? r.json() : (r.status===404 ? {} : Promise.reject(r.status)); })
+    .then(function(existing){
+      var bytes=new TextEncoder().encode(json());
+      var bin=''; bytes.forEach(function(b){ bin+=String.fromCharCode(b); });
+      return fetch(api,{
+        method:'PUT', headers:headers,
+        body: JSON.stringify({
+          message:'Update site content from the workshop editor',
+          content: btoa(bin),
+          branch: branch,
+          sha: existing.sha || undefined
+        })
+      });
+    })
+    .then(function(r){ return r.ok ? r.json() : r.json().then(function(j){ return Promise.reject(j.message||r.status); }); })
+    .then(function(){
+      st.innerHTML='<span class="ok">Published. The live site updates in about a minute.</span>';
+      original=JSON.parse(JSON.stringify(data));
+    })
+    .catch(function(e){ st.innerHTML='<span class="bad">Didn\u2019t work: '+esc(e)+'</span>'; });
+});
+
+/* ---------- modal ---------- */
+function showModal(html){ $('#modalBox').innerHTML=html; $('#modal').classList.add('on'); }
+function closeModal(){ $('#modal').classList.remove('on'); }
+$('#modal').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModal(); });
+
+boot();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ironbark Motor Works — Mechanic in Ashgrove, Brisbane</title>
+<meta name="description" content="Independent mechanical workshop in Ashgrove. Logbook servicing that protects your new car warranty, safety certificates, diagnostics and brakes. Book online or call (07) 3366 8412.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#15222C; --ink-2:#1D303D; --ink-3:#27404F;
+  --amber:#FFB223; --amber-deep:#D98A00;
+  --concrete:#DEDCD6; --paper:#F6F5F2;
+  --steel:#7C8C97; --steel-dim:#A8B4BC;
+  --warn:#C42D2D; --go:#2E9E5B;
+  --measure:64ch; --pad:clamp(1.25rem,5vw,4.5rem);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:'Archivo',system-ui,-apple-system,sans-serif;
+  font-variation-settings:'wdth' 100,'wght' 400;
+  font-size:clamp(1rem,.96rem + .2vw,1.075rem);line-height:1.62;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+h1,h2,h3,h4{font-variation-settings:'wdth' 82,'wght' 800;line-height:.98;letter-spacing:-.015em;margin:0;text-wrap:balance}
+h1{font-size:clamp(2.6rem,7.2vw,5.4rem)}
+h2{font-size:clamp(2rem,4.6vw,3.4rem)}
+h3{font-size:clamp(1.2rem,2vw,1.5rem);font-variation-settings:'wdth' 88,'wght' 750}
+p{margin:0 0 1em;max-width:var(--measure)}
+.wrap{max-width:1220px;margin:0 auto;padding-inline:var(--pad)}
+section{padding-block:clamp(3.5rem,8vw,7rem)}
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+
+/* ============ scroll progress ============ */
+#scrollbar{position:fixed;top:0;left:0;height:3px;width:100%;transform:scaleX(0);transform-origin:0 50%;background:var(--amber);z-index:150;pointer-events:none}
+
+/* ============ roller door ============ */
+#door{
+  position:fixed;inset:0;z-index:200;display:grid;place-items:center;
+  background:repeating-linear-gradient(180deg,#1B2B37 0 14px,#22384A 14px 17px,#0F1A22 17px 20px);
+  transform-origin:top center;will-change:transform;
+}
+#door::after{content:"";position:absolute;left:0;right:0;bottom:0;height:26px;background:repeating-linear-gradient(115deg,var(--amber) 0 22px,#15222C 22px 44px);border-top:3px solid #0B141B}
+#door .plate{text-align:center;padding:1rem;transform:translateY(-4vh)}
+#door .plate b{display:block;font-variation-settings:'wdth' 72,'wght' 900;font-size:clamp(2.2rem,9vw,5.5rem);line-height:.86;color:var(--concrete);letter-spacing:.01em}
+#door .plate span{display:block;margin-top:1rem;color:var(--amber);font-variation-settings:'wdth' 100,'wght' 600;font-size:clamp(.75rem,2vw,.95rem);letter-spacing:.24em}
+body.lifted #door{transform:translateY(-102%) scaleY(.92);transition:transform 1.35s cubic-bezier(.7,.02,.24,1)}
+body.gone #door{display:none}
+
+/* ============ header ============ */
+header{
+  position:sticky;top:0;z-index:100;background:rgba(21,34,44,.94);
+  backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,178,35,.28);color:var(--concrete);
+  transition:box-shadow .3s var(--ease);
+}
+header.stuck{box-shadow:0 10px 32px rgba(11,20,27,.35)}
+.bar{display:flex;align-items:center;gap:clamp(.75rem,2vw,1.75rem);height:76px;transition:height .3s var(--ease)}
+header.stuck .bar{height:62px}
+.mark{display:flex;align-items:center;gap:.7rem;text-decoration:none;margin-right:auto;min-width:0;color:inherit}
+.cog{width:34px;height:34px;flex:none;fill:var(--amber);transition:transform .6s var(--ease)}
+.mark:hover .cog{transform:rotate(90deg)}
+.mark b{font-variation-settings:'wdth' 78,'wght' 850;font-size:1.12rem;line-height:.95;letter-spacing:-.01em;white-space:nowrap}
+.mark i{display:block;font-style:normal;font-size:.68rem;color:var(--steel-dim);letter-spacing:.15em;font-variation-settings:'wght' 500}
+nav{display:flex;gap:1.35rem;font-size:.92rem}
+nav a{text-decoration:none;color:var(--steel-dim);padding:.3rem 0;position:relative;transition:color .2s ease}
+nav a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--amber);transform:scaleX(0);transform-origin:0 50%;transition:transform .28s var(--ease)}
+nav a:hover,nav a:focus-visible{color:#fff}
+nav a:hover::after,nav a:focus-visible::after,nav a.active::after{transform:scaleX(1)}
+nav a.active{color:#fff}
+.status{display:flex;align-items:center;gap:.5rem;font-size:.82rem;color:var(--steel-dim);white-space:nowrap}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--steel);flex:none}
+.dot.on{background:var(--go);animation:pulse 2.4s ease-out infinite}
+.dot.off{background:var(--warn);box-shadow:0 0 0 4px rgba(196,45,45,.18)}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(46,158,91,.55)}70%{box-shadow:0 0 0 9px rgba(46,158,91,0)}100%{box-shadow:0 0 0 0 rgba(46,158,91,0)}}
+
+/* ============ buttons ============ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  padding:.85rem 1.5rem;border:none;border-radius:2px;cursor:pointer;
+  font-family:inherit;font-size:.95rem;font-variation-settings:'wdth' 92,'wght' 700;
+  text-decoration:none;background:var(--amber);color:var(--ink);
+  position:relative;overflow:hidden;isolation:isolate;
+  transition:transform .18s var(--ease),box-shadow .18s var(--ease);
+}
+.btn::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);transform:translateX(-120%);transition:transform .55s var(--ease)}
+.btn:hover::before{transform:translateX(120%)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(255,178,35,.28)}
+.btn:active{transform:translateY(0)}
+.btn.ghost{background:transparent;color:var(--concrete);box-shadow:inset 0 0 0 1.5px rgba(222,220,214,.4)}
+.btn.ghost:hover{background:rgba(222,220,214,.1);box-shadow:inset 0 0 0 1.5px var(--amber)}
+.btn.sm{padding:.6rem 1.05rem;font-size:.86rem}
+.btn.dark{background:var(--ink);color:var(--paper)}
+.btn.dark:hover{box-shadow:0 8px 20px rgba(21,34,44,.28)}
+.btn[disabled]{opacity:.65;pointer-events:none}
+.spin{width:15px;height:15px;border:2px solid rgba(21,34,44,.3);border-top-color:var(--ink);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ============ reveal ============ */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rv.in{opacity:1;transform:none}
+
+/* ============ hero ============ */
+.hero{background:var(--ink);color:var(--concrete);padding-block:clamp(3rem,7vw,5.5rem) clamp(3rem,7vw,6rem);position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:-10%;background:radial-gradient(120% 90% at 82% 0%,rgba(255,178,35,.14),transparent 55%);pointer-events:none;will-change:transform}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(2rem,5vw,4.5rem);align-items:start;position:relative}
+.hero h1{color:#fff}
+.hero .lede{font-size:clamp(1.05rem,1.6vw,1.22rem);color:var(--steel-dim);margin-top:1.6rem;max-width:46ch}
+.hero-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2.2rem}
+.rule{height:5px;width:88px;background:var(--amber);margin-bottom:1.8rem;transform-origin:0 50%;transform:scaleX(0);transition:transform .8s var(--ease)}
+.rule.in{transform:scaleX(1)}
+.hero-meta{display:flex;flex-wrap:wrap;gap:1.6rem;margin-top:2.4rem;padding-top:1.7rem;border-top:1px solid rgba(222,220,214,.16)}
+.hero-meta strong{display:block;font-variation-settings:'wdth' 84,'wght' 800;font-size:1.7rem;line-height:1;font-variant-numeric:tabular-nums}
+.hero-meta small{color:var(--steel);font-size:.8rem;line-height:1.35;display:block;margin-top:.35rem;max-width:18ch}
+.stagger{opacity:0;transform:translateY(20px)}
+body.open-seq .stagger{animation:rise .8s var(--ease) both}
+@keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+/* bay board */
+.board{background:var(--ink-2);border:1px solid rgba(255,178,35,.22);padding:1.4rem;position:relative}
+.board-head{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding-bottom:.9rem;border-bottom:1px solid rgba(222,220,214,.14)}
+.board-head b{font-variation-settings:'wdth' 88,'wght' 750;font-size:1.02rem;color:#fff}
+.board-head span{font-size:.74rem;color:var(--steel);letter-spacing:.1em;font-variant-numeric:tabular-nums}
+.bay{display:grid;grid-template-columns:26px 1fr auto;gap:.85rem;align-items:center;padding:.85rem 0;border-bottom:1px solid rgba(222,220,214,.09)}
+.bay-no{width:26px;height:26px;display:grid;place-items:center;background:rgba(255,178,35,.14);color:var(--amber);font-size:.8rem;font-variation-settings:'wght' 800}
+.bay-car{font-variation-settings:'wght' 650;color:#fff;font-size:.94rem;line-height:1.2;display:block}
+.bay-job{font-size:.78rem;color:var(--steel);line-height:1.3;display:block}
+.bay-state{font-size:.72rem;letter-spacing:.08em;color:var(--amber);white-space:nowrap;font-variation-settings:'wght' 600;display:flex;align-items:center;gap:.4rem}
+.bay-state::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--amber);animation:blink 1.9s ease-in-out infinite}
+.bay-state.free{color:var(--go)}
+.bay-state.free::before{background:var(--go);animation:none}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.progress{grid-column:2/-1;height:3px;background:rgba(222,220,214,.12);margin-top:.5rem;overflow:hidden}
+.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--amber-deep),var(--amber));width:0;transition:width 1.2s var(--ease)}
+.board-foot{padding-top:1rem;font-size:.83rem;color:var(--steel-dim);line-height:1.45;margin:0}
+.board-foot b{color:var(--amber);font-variation-settings:'wght' 700}
+
+/* ============ marquee strip ============ */
+.strip{background:var(--amber);color:var(--ink);padding-block:1.05rem;overflow:hidden;position:relative}
+.strip::before,.strip::after{content:"";position:absolute;top:0;bottom:0;width:60px;z-index:2;pointer-events:none}
+.strip::before{left:0;background:linear-gradient(90deg,var(--amber),transparent)}
+.strip::after{right:0;background:linear-gradient(270deg,var(--amber),transparent)}
+.ticker{display:flex;width:max-content;animation:slide 42s linear infinite}
+.strip:hover .ticker{animation-play-state:paused}
+@keyframes slide{to{transform:translateX(-50%)}}
+.ticker span{display:flex;align-items:center;gap:.5rem;padding-inline:1.6rem;font-size:.88rem;font-variation-settings:'wdth' 94,'wght' 650;white-space:nowrap}
+.tick{width:15px;height:15px;flex:none;fill:none;stroke:var(--ink);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+
+/* ============ section heads ============ */
+.head{max-width:58ch;margin-bottom:clamp(2rem,4vw,3.2rem)}
+.head p{color:#4A5A66;margin-top:1rem;font-size:1.06rem}
+.head .rule{margin-bottom:1.4rem}
+
+/* ============ services ledger ============ */
+.ledger{border-top:2px solid var(--ink)}
+.job{
+  display:grid;grid-template-columns:1fr auto;gap:.4rem 2rem;
+  padding:1.5rem clamp(0rem,2vw,1.25rem);border-bottom:1px solid rgba(21,34,44,.16);
+  align-items:start;position:relative;transition:background .3s var(--ease),padding-left .3s var(--ease);
+}
+.job::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--amber);transform:scaleY(0);transform-origin:50% 0;transition:transform .35s var(--ease)}
+.job:hover{background:#fff}
+.job:hover::before{transform:scaleY(1)}
+.job h3{grid-column:1}
+.job .price{grid-column:2;grid-row:1/span 3;text-align:right;font-variation-settings:'wdth' 84,'wght' 800;font-size:1.45rem;line-height:1.1;white-space:nowrap;transition:color .25s ease}
+.job:hover .price{color:var(--amber-deep)}
+.job .price small{display:block;font-size:.72rem;color:#5E6E7A;font-variation-settings:'wdth' 100,'wght' 500;margin-top:.2rem}
+.job p{margin:0;color:#4A5A66;font-size:.97rem;max-width:56ch;grid-column:1}
+.job .tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.65rem;grid-column:1}
+.tag{font-size:.72rem;padding:.22rem .55rem;background:var(--concrete);color:#3B4A55;font-variation-settings:'wght' 600}
+.tag.hot{background:var(--ink);color:var(--amber)}
+
+/* ============ warranty band ============ */
+.band{background:var(--ink);color:var(--concrete)}
+.band h2{color:#fff}
+.band-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:start}
+.band p{color:var(--steel-dim)}
+.quote{border-left:4px solid var(--amber);padding:.2rem 0 .2rem 1.5rem;margin:2rem 0 0;font-size:clamp(1.15rem,2.2vw,1.5rem);line-height:1.4;color:#fff;font-variation-settings:'wdth' 92,'wght' 500;max-width:34ch}
+.quote cite{display:block;font-style:normal;font-size:.85rem;color:var(--steel);margin-top:1rem;font-variation-settings:'wght' 500}
+.checklist{list-style:none;padding:0;margin:0}
+.checklist li{display:flex;gap:.9rem;padding:.95rem 0;border-bottom:1px solid rgba(222,220,214,.13);font-size:.98rem;align-items:flex-start;transition:padding-left .3s var(--ease),color .3s ease}
+.checklist li:hover{padding-left:.6rem;color:#fff}
+.checklist svg{flex:none;margin-top:.3rem;width:16px;height:16px;fill:none;stroke:var(--amber);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+
+/* ============ symptom picker ============ */
+.diag{background:var(--concrete)}
+.diag-grid{display:grid;grid-template-columns:minmax(0,320px) 1fr;gap:clamp(1.5rem,3vw,2.75rem);align-items:start}
+.symptoms{display:flex;flex-direction:column;gap:.5rem}
+.symptom{
+  text-align:left;width:100%;cursor:pointer;background:var(--paper);
+  border:1px solid rgba(21,34,44,.14);border-left:4px solid transparent;
+  padding:.85rem 1rem;font-family:inherit;font-size:.94rem;color:var(--ink);
+  font-variation-settings:'wght' 600;
+  transition:border-color .2s ease,background .2s ease,transform .2s var(--ease);
+}
+.symptom:hover{background:#fff;border-left-color:var(--steel);transform:translateX(4px)}
+.symptom[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-left-color:var(--amber);border-color:var(--ink);transform:translateX(6px)}
+.readout{background:var(--paper);border:1px solid rgba(21,34,44,.14);padding:clamp(1.4rem,3vw,2.2rem);min-height:340px}
+.readout .empty{color:#5E6E7A;max-width:40ch}
+.readout h3{margin-bottom:.4rem}
+.readout .likely{color:var(--amber-deep);font-size:.85rem;font-variation-settings:'wght' 700;letter-spacing:.06em;margin-bottom:.9rem}
+.readout dl{margin:1.5rem 0 0;display:grid;gap:1.1rem}
+.readout dt{font-variation-settings:'wdth' 92,'wght' 750;font-size:.86rem}
+.readout dd{margin:.3rem 0 0;color:#4A5A66;font-size:.96rem;max-width:52ch}
+.readout .est{display:flex;flex-wrap:wrap;gap:.6rem 1.8rem;margin-top:1.6rem;padding-top:1.4rem;border-top:1px solid rgba(21,34,44,.14);align-items:center}
+.readout .est b{font-variation-settings:'wdth' 84,'wght' 800;font-size:1.3rem}
+.readout .est small{color:#5E6E7A;font-size:.8rem}
+.pop>*{opacity:0;animation:rise .5s var(--ease) both}
+.pop>*:nth-child(1){animation-delay:.02s}
+.pop>*:nth-child(2){animation-delay:.08s}
+.pop>*:nth-child(3){animation-delay:.14s}
+.pop>*:nth-child(4){animation-delay:.2s}
+
+/* ============ pricing ============ */
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;align-items:stretch}
+.tier{border:1px solid rgba(21,34,44,.18);padding:1.75rem;display:flex;flex-direction:column;background:#fff;position:relative;transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.tier:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(21,34,44,.13)}
+.tier.feature{background:var(--ink);color:var(--concrete);border-color:var(--ink)}
+.tier.feature h3{color:#fff}
+.tier .flag{position:absolute;top:0;right:0;background:var(--amber);color:var(--ink);font-size:.7rem;padding:.3rem .6rem;font-variation-settings:'wght' 750;letter-spacing:.05em}
+.tier .amt{font-variation-settings:'wdth' 82,'wght' 850;font-size:2.6rem;line-height:1;margin:1rem 0 .3rem}
+.tier .per{font-size:.8rem;color:#5E6E7A;margin-bottom:1.3rem}
+.tier.feature .per{color:var(--steel)}
+.tier ul{list-style:none;padding:0;margin:0 0 1.6rem;display:grid;gap:.65rem;font-size:.92rem}
+.tier li{display:flex;gap:.65rem;align-items:flex-start;line-height:1.45}
+.tier li svg{flex:none;margin-top:.32rem;width:14px;height:14px;fill:none;stroke:var(--amber-deep);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.tier.feature li svg{stroke:var(--amber)}
+.tier .btn{margin-top:auto}
+
+/* ============ team ============ */
+.crew{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.25rem,3vw,2.5rem)}
+.person{border-top:3px solid var(--ink);padding-top:1.2rem}
+.avatar{aspect-ratio:4/5;background:var(--ink-2);margin-bottom:1.1rem;position:relative;overflow:hidden;display:grid;place-items:center}
+.avatar span{font-variation-settings:'wdth' 76,'wght' 900;font-size:clamp(3rem,7vw,4.6rem);color:rgba(255,178,35,.5);line-height:1;transition:transform .5s var(--ease),color .4s ease}
+.person:hover .avatar span{transform:scale(1.12);color:rgba(255,178,35,.82)}
+.avatar::after{content:"";position:absolute;left:0;right:0;bottom:0;height:8px;background:repeating-linear-gradient(115deg,var(--amber) 0 12px,transparent 12px 24px)}
+.person h3{margin-bottom:.15rem}
+.person .role{font-size:.84rem;color:var(--amber-deep);font-variation-settings:'wght' 650;margin-bottom:.7rem}
+.person p{font-size:.94rem;color:#4A5A66;margin:0}
+
+/* ============ reviews ============ */
+.reviews{background:var(--concrete)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.card{background:var(--paper);padding:1.5rem;border:1px solid rgba(21,34,44,.13);display:flex;flex-direction:column;transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.card:hover{transform:translateY(-5px);box-shadow:0 16px 34px rgba(21,34,44,.12)}
+.card .stars{color:var(--amber-deep);letter-spacing:.15em;font-size:.9rem;margin-bottom:.9rem}
+.card blockquote{margin:0 0 1.3rem;font-size:1rem;line-height:1.55;color:#33424D}
+.card footer{margin-top:auto;display:flex;justify-content:space-between;gap:1rem;align-items:flex-end;font-size:.8rem;color:#5E6E7A;padding-top:1rem;border-top:1px solid rgba(21,34,44,.13)}
+.card footer b{display:block;color:var(--ink);font-size:.9rem;font-variation-settings:'wght' 700}
+.plate{background:#fff;border:2px solid #6B1E3C;color:#6B1E3C;padding:.15rem .45rem;font-variation-settings:'wdth' 88,'wght' 800;font-size:.8rem;letter-spacing:.06em;white-space:nowrap}
+
+/* ============ booking ============ */
+.book{background:var(--ink);color:var(--concrete)}
+.book h2{color:#fff}
+.book-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,4rem);align-items:start}
+form{display:grid;gap:1rem}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+label{display:block;font-size:.82rem;color:var(--steel-dim);margin-bottom:.4rem;font-variation-settings:'wght' 600}
+input,select,textarea{
+  width:100%;padding:.8rem .9rem;background:var(--ink-2);color:#fff;
+  border:1px solid rgba(222,220,214,.2);border-radius:2px;font-family:inherit;font-size:.96rem;
+  transition:border-color .2s ease,background .2s ease,box-shadow .2s ease;
+}
+input::placeholder,textarea::placeholder{color:#61737F}
+input:focus,select:focus,textarea:focus{border-color:var(--amber);outline:none;background:var(--ink-3);box-shadow:0 0 0 3px rgba(255,178,35,.14)}
+input.bad,textarea.bad{border-color:var(--warn);animation:shake .4s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+textarea{resize:vertical;min-height:90px}
+.form-note{font-size:.8rem;color:var(--steel);margin:0}
+.form-error{font-size:.85rem;color:#FF8E8E;margin:0;display:none}
+.form-error.show{display:block}
+.confirm{background:var(--ink-2);border-left:4px solid var(--go);padding:1.75rem;display:none}
+.confirm.show{display:block;animation:rise .5s var(--ease) both}
+.confirm b{display:block;color:#fff;font-size:1.15rem;font-variation-settings:'wdth' 88,'wght' 750;margin-bottom:.5rem}
+.confirm p{color:var(--steel-dim);margin:0;font-size:.95rem}
+.confirm a{color:var(--amber)}
+.checkmark{width:44px;height:44px;margin-bottom:1rem;stroke:var(--go);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.checkmark circle{stroke-dasharray:166;stroke-dashoffset:166;animation:draw .6s var(--ease) forwards}
+.checkmark path{stroke-dasharray:48;stroke-dashoffset:48;animation:draw .4s var(--ease) .5s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+
+.info-block{border-top:1px solid rgba(222,220,214,.16);padding:1.25rem 0}
+.info-block:first-of-type{border-top:none;padding-top:0}
+.info-block h3{color:#fff;font-size:1.02rem;margin-bottom:.6rem}
+.info-block p{color:var(--steel-dim);font-size:.95rem;margin:0}
+.info-block a{color:var(--amber);text-decoration:none}
+.info-block a:hover{text-decoration:underline}
+.hours{display:grid;gap:.35rem;font-size:.93rem;color:var(--steel-dim)}
+.hours div{display:flex;justify-content:space-between;gap:1rem;max-width:20rem;padding:.15rem 0;transition:color .2s ease}
+.hours .today{color:var(--amber);font-variation-settings:'wght' 700}
+
+/* ============ faq ============ */
+details{border-bottom:1px solid rgba(21,34,44,.16)}
+summary{cursor:pointer;padding:1.15rem 2.5rem 1.15rem 0;list-style:none;position:relative;font-variation-settings:'wdth' 90,'wght' 700;font-size:1.03rem;transition:color .2s ease}
+summary:hover{color:var(--amber-deep)}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"";position:absolute;right:.4rem;top:1.5rem;width:11px;height:11px;border-right:2.5px solid var(--amber-deep);border-bottom:2.5px solid var(--amber-deep);transform:rotate(45deg);transition:transform .25s var(--ease),top .25s var(--ease)}
+details[open] summary::after{transform:rotate(225deg);top:1.7rem}
+details[open] .answer{animation:rise .35s var(--ease) both}
+.answer{padding-bottom:1.2rem;color:#4A5A66;margin:0;max-width:62ch}
+
+/* ============ footer + to-top ============ */
+footer.site{background:#0F1A22;color:var(--steel);padding-block:3.5rem 2rem;font-size:.88rem}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:2rem}
+footer.site h4{color:var(--concrete);font-size:.82rem;letter-spacing:.1em;margin-bottom:.9rem;font-variation-settings:'wdth' 100,'wght' 700}
+footer.site ul{list-style:none;padding:0;margin:0;display:grid;gap:.45rem}
+footer.site a{text-decoration:none;color:var(--steel);transition:color .2s ease}
+footer.site a:hover{color:var(--amber)}
+footer.site p{max-width:38ch;line-height:1.6}
+.legal{margin-top:2.75rem;padding-top:1.5rem;border-top:1px solid rgba(222,220,214,.12);display:flex;flex-wrap:wrap;gap:.6rem 2rem;font-size:.78rem;color:#5A6B76}
+#toTop{
+  position:fixed;right:1.25rem;bottom:1.25rem;z-index:90;width:46px;height:46px;
+  display:grid;place-items:center;background:var(--amber);color:var(--ink);border:none;cursor:pointer;
+  opacity:0;transform:translateY(14px) scale(.85);pointer-events:none;
+  transition:opacity .3s var(--ease),transform .3s var(--ease);
+}
+#toTop.show{opacity:1;transform:none;pointer-events:auto}
+#toTop:hover{transform:translateY(-3px)}
+#toTop svg{width:18px;height:18px;fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+
+/* ============ responsive ============ */
+@media (max-width:1000px){
+  .hero-grid,.band-grid,.book-grid,.diag-grid{grid-template-columns:1fr}
+  .tiers,.crew,.cards{grid-template-columns:1fr;gap:1rem}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  nav{display:none}
+  .board{margin-top:1rem}
+}
+@media (max-width:620px){
+  .row{grid-template-columns:1fr}
+  .status{display:none}
+  .foot-grid{grid-template-columns:1fr}
+  .job{grid-template-columns:1fr}
+  .job .price{grid-column:1;grid-row:auto;text-align:left;margin-top:.5rem}
+  .hero-meta div{flex:1 1 40%}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  body.lifted #door{transition:opacity .2s linear;transform:none;opacity:0}
+  .rv{opacity:1;transform:none}
+  .ticker{animation:none}
+}
+</style>
+</head>
+<body>
+
+<div id="scrollbar"></div>
+
+<div id="door" aria-hidden="true">
+  <div class="plate">
+    <b>IRONBARK<br>MOTOR WORKS</b>
+    <span>ASHGROVE &middot; EST. 1998</span>
+  </div>
+</div>
+
+<header id="hdr">
+  <div class="wrap bar">
+    <a class="mark" href="#top">
+      <svg class="cog" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8.4a3.6 3.6 0 1 0 0 7.2 3.6 3.6 0 0 0 0-7.2Zm9.1 5.2.1-1.6-.1-1.6-2.1-.4a7 7 0 0 0-.7-1.7l1.2-1.8a9.6 9.6 0 0 0-2.2-2.2l-1.8 1.2a7 7 0 0 0-1.7-.7L13.4 2a9.7 9.7 0 0 0-2.8 0l-.4 2.1a7 7 0 0 0-1.7.7L6.7 3.6a9.6 9.6 0 0 0-2.2 2.2l1.2 1.8a7 7 0 0 0-.7 1.7L2.9 10a9.7 9.7 0 0 0 0 2.8l2.1.4c.16.6.4 1.17.7 1.7l-1.2 1.8a9.6 9.6 0 0 0 2.2 2.2l1.8-1.2c.53.3 1.1.54 1.7.7l.4 2.1a9.7 9.7 0 0 0 2.8 0l.4-2.1a7 7 0 0 0 1.7-.7l1.8 1.2a9.6 9.6 0 0 0 2.2-2.2l-1.2-1.8c.3-.53.54-1.1.7-1.7l2.1-.4Z"/></svg>
+      <span><b data-bind="business.name">Ironbark Motor Works</b><i data-bind="business.suburb">Ashgrove QLD</i></span>
+    </a>
+    <nav id="nav">
+      <a href="#services">Services</a>
+      <a href="#logbook">Logbook</a>
+      <a href="#diagnose">What's that noise?</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#crew">Our team</a>
+    </nav>
+    <span class="status"><span class="dot" id="dot"></span><span id="statusText">Checking hours…</span></span>
+    <a class="btn sm" href="#booking">Book a service</a>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="rule stagger" style="animation-delay:.05s"></div>
+      <h1 class="stagger" id="heroHeadline" style="animation-delay:.12s"></h1>
+      <p class="lede stagger" id="heroLede" style="animation-delay:.22s"></p>
+      <div class="hero-actions stagger" style="animation-delay:.32s">
+        <a class="btn" href="#booking">Book a service</a>
+        <a class="btn ghost" id="heroCall" href="#">Call</a>
+      </div>
+      <div class="hero-meta stagger" id="heroStats" style="animation-delay:.42s"></div>
+    </div>
+
+    <aside class="board stagger" aria-label="Workshop status" style="animation-delay:.5s">
+      <div class="board-head"><b>In the workshop now</b><span id="clock">—</span></div>
+      <div id="bayList"></div>
+      <p class="board-foot">Next available booking: <b id="nextSlot">—</b><br><span id="afterHours"></span></p>
+    </aside>
+  </div>
+</section>
+
+<div class="strip"><div class="ticker" id="ticker"></div></div>
+
+<section id="services">
+  <div class="wrap">
+    <div class="head">
+      <div class="rule rv"></div>
+      <h2 class="rv">What we do</h2>
+      <p class="rv">Prices are real starting prices for a typical four-cylinder passenger car, and we confirm the exact figure before we touch anything. Utes, European makes and larger engines cost more — ask and we'll tell you straight away.</p>
+    </div>
+    <div class="ledger" id="serviceList"></div>
+  </div>
+</section>
+
+<section id="logbook" class="band">
+  <div class="wrap band-grid">
+    <div>
+      <div class="rule rv"></div>
+      <h2 class="rv">You do not have to service at the dealer.</h2>
+      <p class="rv">It's the single most common thing we get asked, and the answer has been settled law in Australia since 2010. Under the Competition and Consumer Act, a manufacturer cannot void your new car warranty simply because an independent workshop did the servicing.</p>
+      <p class="rv">What matters is that the work follows the manufacturer's schedule, uses parts of the right specification, and is properly documented. That's exactly what we do — and we're usually 30 to 40 per cent cheaper than the dealership for the same service.</p>
+      <blockquote class="quote rv">We keep the receipts, the part numbers and the technician's name on file for seven years. If a manufacturer ever asks, we answer.<cite>Dean Whitlock, owner</cite></blockquote>
+    </div>
+    <div>
+      <ul class="checklist rv">
+        <li><svg viewBox="0 0 24 24"><path d="m4 12.5 5.5 5.5L20 6.5"/></svg><span>Your logbook stamped and dated at every service</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="m4 12.5 5.5 5.5L20 6.5"/></svg><span>Genuine or OEM-equivalent parts that meet the maker's specification</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="m4 12.5 5.5 5.5L20 6.5"/></svg><span>Itemised invoice listing every part number and fluid grade used</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="m4 12.5 5.5 5.5L20 6.5"/></svg><span>Photos of anything we recommend replacing, sent to your phone before we do it</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="m4 12.5 5.5 5.5L20 6.5"/></svg><span>Capped-price comparison against your dealer's schedule, on request</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="m4 12.5 5.5 5.5L20 6.5"/></svg><span>Service history kept on file for seven years</span></li>
+      </ul>
+      <a class="btn rv" href="#booking" style="margin-top:1.75rem">Book your logbook service</a>
+    </div>
+  </div>
+</section>
+
+<section id="diagnose" class="diag">
+  <div class="wrap">
+    <div class="head">
+      <div class="rule rv"></div>
+      <h2 class="rv">What's that noise?</h2>
+      <p class="rv">Pick whatever your car is doing and we'll tell you what it usually turns out to be, what we'd check first, and roughly what it costs. It's not a diagnosis — but it means you walk in knowing what you're talking about.</p>
+    </div>
+    <div class="diag-grid">
+      <div class="symptoms rv" role="group" aria-label="Choose a symptom"></div>
+      <div class="readout rv" id="readout" aria-live="polite"><p class="empty">Choose a symptom from the list and the likely causes will appear here.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <div class="head">
+      <div class="rule rv"></div>
+      <h2 class="rv">Service pricing</h2>
+      <p class="rv">Three levels, all fixed price for a standard four-cylinder passenger car. If your car needs something outside the list we'll call you with a price before we do it — never after.</p>
+    </div>
+    <div class="tiers" id="tierList"></div>
+  </div>
+</section>
+
+<section id="crew">
+  <div class="wrap">
+    <div class="head">
+      <div class="rule rv"></div>
+      <h2 class="rv">The people who'll actually work on it</h2>
+      <p class="rv">No rotating cast of subcontractors. Three qualified mechanics and an apprentice, and you'll speak to the one holding the spanner.</p>
+    </div>
+    <div class="crew" id="crewList"></div>
+  </div>
+</section>
+
+<section class="reviews">
+  <div class="wrap">
+    <div class="head">
+      <div class="rule rv"></div>
+      <h2 class="rv">What people say afterwards</h2>
+      <p class="rv">380 Google reviews, averaging 4.9. Here are three that get repeated back to us most often.</p>
+    </div>
+    <div class="cards" id="reviewList"></div>
+  </div>
+</section>
+
+<section id="booking" class="book">
+  <div class="wrap book-grid">
+    <div>
+      <div class="rule rv"></div>
+      <h2 class="rv">Book your car in</h2>
+      <p class="rv" style="color:var(--steel-dim)">Tell us what's going on and we'll confirm a time by text, usually within the hour during business hours.</p>
+
+      <form id="bookingForm" class="rv" novalidate>
+        <div class="row">
+          <div><label for="fname">Your name</label><input id="fname" name="Name" type="text" placeholder="Jo Bennett" required></div>
+          <div><label for="fphone">Mobile</label><input id="fphone" name="Mobile" type="tel" placeholder="0412 345 678" required></div>
+        </div>
+        <div class="row">
+          <div><label for="femail">Email</label><input id="femail" name="Email" type="email" placeholder="jo@example.com"></div>
+          <div><label for="frego">Rego</label><input id="frego" name="Rego" type="text" placeholder="184 QRS"></div>
+        </div>
+        <div class="row">
+          <div><label for="fcar">Make and model</label><input id="fcar" name="Vehicle" type="text" placeholder="2019 Toyota Hilux"></div>
+          <div><label for="fdate">Preferred day</label><input id="fdate" name="Preferred day" type="date"></div>
+        </div>
+        <div>
+          <label for="fservice">What do you need?</label>
+          <select id="fservice" name="Service">
+            <option>Full logbook service</option>
+            <option>Interim service</option>
+            <option>Major service</option>
+            <option>Safety certificate (roadworthy)</option>
+            <option>Brakes</option>
+            <option>Air conditioning</option>
+            <option>Check engine light / diagnostics</option>
+            <option>Pre-purchase inspection</option>
+            <option>Something's wrong and I'm not sure what</option>
+          </select>
+        </div>
+        <div>
+          <label for="fnotes">Anything we should know?</label>
+          <textarea id="fnotes" name="Notes" placeholder="Squealing when I brake at low speed, started about two weeks ago."></textarea>
+        </div>
+        <input type="text" name="botcheck" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button class="btn" type="submit" id="submitBtn">Request this booking</button>
+        <p class="form-error" id="formError"></p>
+        <p class="form-note">We'll confirm by text before anything is locked in. No deposit, no card details.</p>
+      </form>
+
+      <div class="confirm" id="confirm" role="status">
+        <svg class="checkmark" viewBox="0 0 52 52"><circle cx="26" cy="26" r="25"/><path d="m14 27 8 8 16-16"/></svg>
+        <b>Booking request sent</b>
+        <p id="confirmText"></p>
+      </div>
+    </div>
+
+    <div class="rv">
+      <div class="info-block">
+        <h3>Where we are</h3>
+        <p><span data-bind="business.addressLine1"></span><br><span data-bind="business.addressLine2"></span><br><span data-bind="business.directions"></span><br><a id="mapLink" target="_blank" rel="noopener">Open in Google Maps</a></p>
+      </div>
+      <div class="info-block">
+        <h3>Opening hours</h3>
+        <div class="hours" id="hours"></div>
+      </div>
+      <div class="info-block">
+        <h3>Getting around without your car</h3>
+        <p>Two courtesy cars, free, first in first served. We'll also pick your car up and drop it back within 5&nbsp;km of the workshop at no charge — <span id="suburbLine"></span>.</p>
+      </div>
+      <div class="info-block">
+        <h3>Paying</h3>
+        <p>Card, bank transfer, or split it over four with Afterpay on jobs over $300. We'll always quote before starting, and the invoice lists every part number.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap" style="max-width:820px">
+    <div class="head"><div class="rule rv"></div><h2 class="rv">Questions we get every week</h2></div>
+    <div id="faqList" class="rv"></div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h4 id="footName">IRONBARK MOTOR WORKS</h4>
+        <p>An independent mechanical workshop on Stewart Road, Ashgrove, since 1998. Every make, every model, explained in plain English.</p>
+      </div>
+      <div><h4>SERVICES</h4><ul id="footServices"></ul></div>
+      <div><h4>SUBURBS WE SERVE</h4><ul id="footSuburbs"></ul></div>
+      <div>
+        <h4>GET IN TOUCH</h4>
+        <ul>
+          <li><a id="footPhone" href="#"></a></li>
+          <li><a id="footEmail" href="#"></a></li>
+          <li><span data-bind="business.addressLine1"></span><br><span data-bind="business.addressLine2"></span></li>
+          <li><a href="#booking">Book online</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal" id="legal"></div>
+  </div>
+</footer>
+
+<button id="toTop" aria-label="Back to top"><svg viewBox="0 0 24 24"><path d="M12 19V5m0 0-7 7m7-7 7 7"/></svg></button>
+
+<script>
+/* =====================================================================
+   CONFIG — the two things you change per client
+   ===================================================================== */
+var CONFIG = {
+  // Get a free key at https://web3forms.com (takes 30 seconds, no account).
+  // Paste it here and bookings email straight to the address you verified.
+  // Leave blank and the form falls back to opening the visitor's email app.
+  FORM_ACCESS_KEY: "",
+  FALLBACK_EMAIL:  "b51364616@gmail.com"
+};
+
+/* =====================================================================
+   CONTENT — loaded from content.json, with these as the fallback
+   ===================================================================== */
+var DEFAULT_CONTENT = {
+  "business": {
+    "name": "Ironbark Motor Works",
+    "suburb": "Ashgrove QLD",
+    "established": "1998",
+    "phone": "(07) 3366 8412",
+    "phoneLink": "+61733668412",
+    "email": "workshop@ironbarkmotorworks.com.au",
+    "addressLine1": "42 Stewart Road",
+    "addressLine2": "Ashgrove QLD 4060",
+    "directions": "Second driveway past the servo, roller door 2.",
+    "mapUrl": "https://maps.google.com/?q=Stewart+Road+Ashgrove+QLD",
+    "abn": "51 824 753 556",
+    "ais": "12744",
+    "membership": "Member, MTA Queensland"
+  },
+
+  "hero": {
+    "headline": "Mechanics who show you the worn part before they replace it.",
+    "lede": "Logbook servicing, safety certificates, brakes and diagnostics for every make — done in Ashgrove by the same three people since the day you first came in.",
+    "stats": [
+      { "value": "27", "suffix": " yrs", "label": "On Stewart Road since 1998" },
+      { "value": "4.9", "suffix": "", "label": "From 380 Google reviews" },
+      { "value": "12", "suffix": " mth", "label": "Warranty on parts and labour" },
+      { "value": "0", "prefix": "$", "suffix": "", "label": "Pick-up and drop-off within 5 km" }
+    ]
+  },
+
+  "bays": [
+    { "no": 1, "vehicle": "Hilux SR5 2019", "job": "120,000 km logbook service", "state": "Road test", "progress": 86, "free": false },
+    { "no": 2, "vehicle": "Golf GTI 2016", "job": "Front pads & rotors", "state": "On the hoist", "progress": 54, "free": false },
+    { "no": 3, "vehicle": "Mazda CX-5 2021", "job": "Check engine light — scan", "state": "Diagnosing", "progress": 31, "free": false },
+    { "no": 4, "vehicle": "Bay free", "job": "Safety certificates, 30 min", "state": "Walk-ins ok", "progress": 0, "free": true }
+  ],
+
+  "nextSlot": "auto",
+  "afterHoursNote": "Drop your keys in the after-hours slot any time before 7am.",
+
+  "strip": [
+    "Approved Inspection Station #12744",
+    "New car warranty protected",
+    "Free courtesy car",
+    "Hybrid & EV trained",
+    "Quoted before we start",
+    "12 month warranty on all work",
+    "Same-day safety certificates"
+  ],
+
+  "hours": [
+    { "day": "Monday",    "open": "07:00", "close": "17:30", "closed": false },
+    { "day": "Tuesday",   "open": "07:00", "close": "17:30", "closed": false },
+    { "day": "Wednesday", "open": "07:00", "close": "17:30", "closed": false },
+    { "day": "Thursday",  "open": "07:00", "close": "17:30", "closed": false },
+    { "day": "Friday",    "open": "07:00", "close": "17:30", "closed": false },
+    { "day": "Saturday",  "open": "08:00", "close": "12:00", "closed": false },
+    { "day": "Sunday",    "open": "",      "close": "",      "closed": true  }
+  ],
+
+  "services": [
+    {
+      "title": "Logbook servicing",
+      "blurb": "Every item the manufacturer's schedule asks for, stamped in your book with genuine or equivalent-quality parts. Your new car warranty stays exactly as it is.",
+      "price": "$265", "priceNote": "from",
+      "tags": ["All makes", "Book stamped", "2–3 hours"]
+    },
+    {
+      "title": "Safety certificate (roadworthy)",
+      "blurb": "Queensland safety certificate for selling or re-registering. Booked in half-hour slots, and if something fails we'll quote the repair before you decide.",
+      "price": "$89", "priceNote": "fixed fee",
+      "tags": ["Same day*", "30 minutes", "AIS #12744"]
+    },
+    {
+      "title": "Brakes",
+      "blurb": "Pads, rotors, calipers, lines and fluid. We machine rotors in-house where they're still within tolerance, which usually saves a few hundred dollars.",
+      "price": "$420", "priceNote": "from, front axle",
+      "tags": ["Front pads & machining", "Same day"]
+    },
+    {
+      "title": "Diagnostics and check engine lights",
+      "blurb": "Factory-level scan tools for most makes, plus an actual mechanic reading the live data rather than just quoting the code back at you. Fee comes off the repair if you go ahead.",
+      "price": "$110", "priceNote": "diagnostic fee",
+      "tags": ["Credited to repair*", "45 minutes"]
+    },
+    {
+      "title": "Air conditioning",
+      "blurb": "Regas, leak testing with dye, condenser and compressor work. Licensed to handle both R134a and the newer R1234yf refrigerant.",
+      "price": "$189", "priceNote": "from",
+      "tags": ["Regas from $189", "1 hour"]
+    },
+    {
+      "title": "Clutch and transmission",
+      "blurb": "Automatic transmission fluid and filter services, clutch replacement, and CV joint and driveshaft repairs. Big jobs get a written quote and a courtesy car.",
+      "price": "$340", "priceNote": "from",
+      "tags": ["Auto service $340", "Clutch from $1,290"]
+    },
+    {
+      "title": "Tyres, wheels and suspension",
+      "blurb": "Fitting, balancing, four-wheel alignment on a Hunter rig, plus shocks, bushes and steering components. We'll show you the alignment printout before and after.",
+      "price": "$95", "priceNote": "from",
+      "tags": ["Alignment $95", "1 hour"]
+    },
+    {
+      "title": "Pre-purchase inspections",
+      "blurb": "Before you buy someone else's problem: a 120-point check, a scan for stored fault codes, and a phone call from the mechanic who inspected it. We travel within 15 km.",
+      "price": "$249", "priceNote": "flat",
+      "tags": ["Mobile available*", "90 minutes"]
+    }
+  ],
+
+  "tiers": [
+    {
+      "name": "Interim service",
+      "amount": "$189",
+      "per": "Every 6 months or 10,000 km",
+      "featured": false,
+      "flag": "",
+      "includes": [
+        "Engine oil and filter",
+        "All fluid levels topped up",
+        "Tyre pressures and tread depth",
+        "Brake and lights safety check",
+        "Written condition report"
+      ]
+    },
+    {
+      "name": "Full logbook service",
+      "amount": "$265",
+      "per": "Every 12 months or 15,000 km",
+      "featured": true,
+      "flag": "Most booked",
+      "includes": [
+        "Everything in the interim service",
+        "Every item on your manufacturer's schedule",
+        "Air, cabin and fuel filters as scheduled",
+        "Full diagnostic scan, all modules",
+        "Battery and charging system test",
+        "Logbook stamped, warranty intact",
+        "Courtesy car if you need one"
+      ]
+    },
+    {
+      "name": "Major service",
+      "amount": "$495",
+      "per": "Every 24 months or 40,000 km",
+      "featured": false,
+      "flag": "",
+      "includes": [
+        "Everything in the full service",
+        "Brake fluid flush and replace",
+        "Coolant drain, flush and refill",
+        "Spark plugs replaced",
+        "Four-wheel alignment",
+        "Suspension and steering inspection"
+      ]
+    }
+  ],
+
+  "team": [
+    {
+      "initials": "DW",
+      "name": "Dean Whitlock",
+      "role": "Owner & master technician",
+      "bio": "Twenty-seven years in the trade, eleven of them at a Toyota dealership before opening Ironbark. Diesel and 4WD specialist, and the person who'll call you with the quote."
+    },
+    {
+      "initials": "PR",
+      "name": "Priya Raman",
+      "role": "Diagnostics & electrical",
+      "bio": "Hybrid and EV high-voltage certified. If a warning light has defeated two other workshops, it lands on Priya's bench. Also the reason we bought the good scan tool."
+    },
+    {
+      "initials": "MC",
+      "name": "Marco Cavallo",
+      "role": "European & performance",
+      "bio": "Fifteen years on Volkswagen, Audi and BMW, including timing chains and DSG work most independents send away. Brings a very serious coffee machine to the staff room."
+    }
+  ],
+
+  "reviews": [
+    {
+      "stars": 5,
+      "text": "Took the Ranger in for a rattle two other places couldn't find. Dean put it on the hoist, walked me under it and pointed at the broken sway bar link. Fixed the same afternoon for less than I'd budgeted for the diagnosis alone.",
+      "name": "Sam Ellery",
+      "suburb": "The Gap",
+      "plate": "184 QRS"
+    },
+    {
+      "stars": 5,
+      "text": "I'd been told by the dealer that servicing anywhere else would void my warranty. Priya explained the actual law, stamped the book, and saved me $310 on the 60,000. Three services later and my warranty is completely fine.",
+      "name": "Hannah Doyle",
+      "suburb": "Ashgrove",
+      "plate": "902 KLW"
+    },
+    {
+      "stars": 5,
+      "text": "They texted me a photo of the worn brake pad next to a new one before doing anything. First mechanic in twenty years who made me feel like I wasn't being taken for a ride. The courtesy car was clean, too.",
+      "name": "Peter Nguyen",
+      "suburb": "Enoggera",
+      "plate": "576 TJD"
+    }
+  ],
+
+  "faq": [
+    {
+      "q": "Will servicing here void my new car warranty?",
+      "a": "No. Australian Consumer Law has prohibited that since 2010. As long as the service follows the manufacturer's schedule and uses parts of the correct specification, your warranty is unaffected. We stamp your logbook and keep the documentation on file in case anyone ever asks."
+    },
+    {
+      "q": "How long does a logbook service take?",
+      "a": "Two to three hours for most cars. Book it in the morning and it's usually ready by early afternoon. If we find something that needs attention we'll call you with a price before doing any extra work."
+    },
+    {
+      "q": "Can I wait while it's done?",
+      "a": "For safety certificates and quick jobs, yes — there's a waiting room with decent coffee and wifi. For a full service you're better off taking a courtesy car or letting us drop you home if you're within 5 km."
+    },
+    {
+      "q": "Do you work on European cars?",
+      "a": "Yes. Marco has fifteen years on Volkswagen, Audi and BMW, and we have the factory-level diagnostic software for those makes plus Mercedes-Benz. Parts sometimes take an extra day to arrive."
+    },
+    {
+      "q": "What about hybrids and EVs?",
+      "a": "Priya is high-voltage certified and we're set up for hybrid servicing and EV brake, suspension, tyre and 12-volt system work. We don't do high-voltage battery pack repairs — that goes back to the manufacturer."
+    },
+    {
+      "q": "What if I can't afford the repair right now?",
+      "a": "Tell us. We'll separate the list into what makes the car unsafe, what will get worse and more expensive if it waits, and what can genuinely be left for six months. Afterpay is available on jobs over $300."
+    }
+  ],
+
+  "suburbs": ["Ashgrove", "The Gap", "Enoggera", "Newmarket", "Bardon", "Alderley", "Everton Park"]
+};
+
+var SYMPTOMS = [
+  { q:"Squealing or squeaking when I brake", cause:"Worn or glazed brake pads", likely:"Nine times out of ten",
+    check:"We measure the remaining pad material and check the rotors for scoring and thickness. The wear indicator on most pads is a small metal tab designed to squeal at about 3 mm — it's a warning, not a failure, so you're not in danger yet.",
+    urgent:"Book within a fortnight. If the squeal turns into a grind, stop driving it — that's metal on metal and the rotor is being destroyed.",
+    price:"$420", note:"front pads and rotor machining, typical" },
+  { q:"Shuddering through the steering wheel at highway speed", cause:"Warped front rotors or wheel imbalance", likely:"Usually one of two things",
+    check:"We check rotor runout with a dial gauge and re-balance all four wheels. If the shudder is only there under braking it's the rotors; if it's there all the time at 90–110 km/h it's almost always balance or a bent rim.",
+    urgent:"Not dangerous immediately, but it wears out tyres and suspension bushes fast. Worth booking this month.",
+    price:"$95", note:"balance and alignment, or $420 if rotors need machining" },
+  { q:"Grinding or clicking when I turn", cause:"Worn CV joint", likely:"Very likely",
+    check:"We lift the car and check the CV boots for splits and grease throw, then feel for play in the joint. A clicking that only happens on full lock is the outer joint; a vibration under acceleration is usually the inner.",
+    urgent:"Book within a week or two. A CV joint that fails completely will leave you stranded, and it usually happens mid-turn.",
+    price:"$480", note:"one side, shaft replacement, typical" },
+  { q:"Air con is blowing warm", cause:"Low refrigerant from a slow leak", likely:"Most common cause",
+    check:"We put dye through the system and pressure test it. Air con doesn't get 'used up' — if it's low, something is leaking, usually an O-ring or the condenser at the front of the car where stones hit it.",
+    urgent:"No hurry mechanically, but running a low system can damage the compressor, which is the expensive part.",
+    price:"$189", note:"regas and leak test; repairs quoted separately" },
+  { q:"Car won't start, just clicks", cause:"Flat or failing battery", likely:"Almost always",
+    check:"We load-test the battery, then test the alternator's charging output and the starter motor draw. A rapid machine-gun clicking is a battery with not enough current; a single loud clunk is more likely the starter.",
+    urgent:"Today. We'll come to you within 5 km if the car won't move.",
+    price:"$195", note:"battery supplied and fitted, from" },
+  { q:"White smoke and a sweet smell", cause:"Coolant entering the combustion chamber", likely:"Take this one seriously",
+    check:"We do a cooling system pressure test and a chemical test of the coolant for exhaust gases. That sweet smell is glycol, and white smoke that doesn't clear once the engine is warm usually means a head gasket.",
+    urgent:"Stop driving it. Continuing will turn a head gasket into a warped head or a destroyed engine. Call us and we'll organise a tow.",
+    price:"$1,850", note:"head gasket, typical four-cylinder, quoted after inspection" },
+  { q:"Check engine light came on", cause:"Could be almost anything", likely:"Needs a scan",
+    check:"We read every module, not just the engine, and look at live sensor data and freeze-frame from the moment the fault set. The most common culprits are oxygen sensors, evaporative emissions leaks (often just a loose fuel cap) and misfires.",
+    urgent:"Solid light means book it in soon. Flashing light means pull over — a flashing light is an active misfire that will destroy your catalytic converter within minutes.",
+    price:"$110", note:"diagnostic fee, credited against the repair" },
+  { q:"Steering feels heavy or wanders", cause:"Alignment, tyre pressures or worn steering components", likely:"Start with the cheap stuff",
+    check:"We check pressures and tread wear patterns first, then put it on the alignment rig and inspect the tie rod ends, ball joints and bushes. Uneven wear on the tyre edges tells us most of the story before we lift it.",
+    urgent:"Book this month. Bad alignment will chew through a set of tyres in a few thousand kilometres.",
+    price:"$95", note:"four-wheel alignment; component repairs quoted" }
+];
+
+(function(){
+'use strict';
+var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var C = DEFAULT_CONTENT;
+
+function $(s,r){ return (r||document).querySelector(s); }
+function $$(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); }
+function esc(t){ var d=document.createElement('div'); d.textContent = t==null?'':String(t); return d.innerHTML; }
+function dig(o,p){ return p.split('.').reduce(function(a,k){ return a && a[k]; }, o); }
+var TICK = '<svg class="tick" viewBox="0 0 24 24"><path d="m4 12.5 5.5 5.5L20 6.5"/></svg>';
+var LI   = '<svg viewBox="0 0 24 24"><path d="m4 12.5 5.5 5.5L20 6.5"/></svg>';
+
+/* ---------- load content: localStorage > content.json > embedded ---------- */
+function loadContent(){
+  return new Promise(function(resolve){
+    var local = null;
+    try { local = JSON.parse(localStorage.getItem('ironbark-content')); } catch(e){}
+    if(local && local.business){ return resolve(local); }
+    fetch('content.json', {cache:'no-store'})
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(j){ resolve(j && j.business ? j : DEFAULT_CONTENT); })
+      .catch(function(){ resolve(DEFAULT_CONTENT); });
+  });
+}
+
+/* ---------- render ---------- */
+function render(){
+  var b = C.business;
+
+  $$('[data-bind]').forEach(function(el){
+    var v = dig(C, el.getAttribute('data-bind'));
+    if(v != null) el.textContent = v;
+  });
+
+  document.title = b.name + ' — Mechanic in ' + b.suburb.replace(/ QLD.*/,'') + ', Brisbane';
+
+  /* hero */
+  $('#heroHeadline').textContent = C.hero.headline;
+  $('#heroLede').textContent = C.hero.lede;
+  var call = $('#heroCall');
+  call.href = 'tel:' + b.phoneLink;
+  call.textContent = 'Call ' + b.phone;
+
+  $('#heroStats').innerHTML = C.hero.stats.map(function(s){
+    return '<div><strong data-count="'+esc(s.value)+'" data-prefix="'+esc(s.prefix||'')+'" data-suffix="'+esc(s.suffix||'')+'">'+
+           esc((s.prefix||'')+s.value+(s.suffix||''))+'</strong><small>'+esc(s.label)+'</small></div>';
+  }).join('');
+
+  /* bays */
+  $('#bayList').innerHTML = C.bays.map(function(bay){
+    return '<div class="bay">'+
+      '<span class="bay-no">'+esc(bay.no)+'</span>'+
+      '<span><span class="bay-car">'+esc(bay.vehicle)+'</span><span class="bay-job">'+esc(bay.job)+'</span></span>'+
+      '<span class="bay-state'+(bay.free?' free':'')+'">'+esc(bay.state)+'</span>'+
+      '<span class="progress"><i data-fill="'+(Number(bay.progress)||0)+'%"></i></span>'+
+    '</div>';
+  }).join('');
+  $('#afterHours').textContent = C.afterHoursNote || '';
+
+  /* ticker — duplicated so the loop is seamless */
+  var items = C.strip.map(function(t){ return '<span>'+TICK+esc(t)+'</span>'; }).join('');
+  $('#ticker').innerHTML = items + items;
+
+  /* services */
+  $('#serviceList').innerHTML = C.services.map(function(s){
+    var tags = (s.tags||[]).map(function(t){
+      var hot = /\*$/.test(t);
+      return '<span class="tag'+(hot?' hot':'')+'">'+esc(t.replace(/\*$/,''))+'</span>';
+    }).join('');
+    return '<article class="job rv"><h3>'+esc(s.title)+'</h3><p>'+esc(s.blurb)+'</p>'+
+           '<div class="tags">'+tags+'</div>'+
+           '<div class="price">'+esc(s.price)+'<small>'+esc(s.priceNote||'')+'</small></div></article>';
+  }).join('');
+
+  /* tiers */
+  $('#tierList').innerHTML = C.tiers.map(function(t){
+    return '<div class="tier rv'+(t.featured?' feature':'')+'">'+
+      (t.flag ? '<span class="flag">'+esc(t.flag)+'</span>' : '')+
+      '<h3>'+esc(t.name)+'</h3><div class="amt">'+esc(t.amount)+'</div><div class="per">'+esc(t.per)+'</div>'+
+      '<ul>'+t.includes.map(function(i){ return '<li>'+LI+esc(i)+'</li>'; }).join('')+'</ul>'+
+      '<a class="btn '+(t.featured?'':'dark')+'" href="#booking">Book '+esc(t.name.toLowerCase())+'</a></div>';
+  }).join('');
+
+  /* crew */
+  $('#crewList').innerHTML = C.team.map(function(p){
+    return '<div class="person rv"><div class="avatar"><span>'+esc(p.initials)+'</span></div>'+
+      '<h3>'+esc(p.name)+'</h3><div class="role">'+esc(p.role)+'</div><p>'+esc(p.bio)+'</p></div>';
+  }).join('');
+
+  /* reviews */
+  $('#reviewList').innerHTML = C.reviews.map(function(r){
+    var stars = new Array((Number(r.stars)||5)+1).join('★');
+    return '<div class="card rv"><div class="stars" aria-label="'+esc(r.stars)+' out of 5">'+stars+'</div>'+
+      '<blockquote>'+esc(r.text)+'</blockquote>'+
+      '<footer><span><b>'+esc(r.name)+'</b>'+esc(r.suburb)+'</span><span class="plate">'+esc(r.plate)+'</span></footer></div>';
+  }).join('');
+
+  /* faq */
+  $('#faqList').innerHTML = C.faq.map(function(f){
+    return '<details><summary>'+esc(f.q)+'</summary><p class="answer">'+esc(f.a)+'</p></details>';
+  }).join('');
+
+  /* contact + footer */
+  $('#mapLink').href = b.mapUrl;
+  $('#suburbLine').textContent = C.suburbs.join(', ');
+  $('#footName').textContent = b.name.toUpperCase();
+  var fp = $('#footPhone'); fp.href = 'tel:'+b.phoneLink; fp.textContent = b.phone;
+  var fe = $('#footEmail'); fe.href = 'mailto:'+b.email; fe.textContent = b.email;
+  $('#footServices').innerHTML = C.services.slice(0,6).map(function(s){
+    return '<li><a href="#services">'+esc(s.title)+'</a></li>';
+  }).join('');
+  $('#footSuburbs').innerHTML = C.suburbs.map(function(s){ return '<li>'+esc(s)+'</li>'; }).join('');
+  $('#legal').innerHTML = ['ABN '+esc(b.abn), 'Approved Inspection Station #'+esc(b.ais), esc(b.membership),
+    '&copy; '+new Date().getFullYear()+' '+esc(b.name)].map(function(t){ return '<span>'+t+'</span>'; }).join('');
+
+  renderHours();
+}
+
+/* ---------- hours + open status ---------- */
+function toMins(hhmm){ var p = (hhmm||'').split(':'); return (+p[0])*60 + (+p[1]); }
+function fmt(m){
+  var h = Math.floor(m/60), mm = m%60, ap = h>=12?'pm':'am', h12 = h%12===0?12:h%12;
+  return h12 + (mm ? ':'+String(mm).padStart(2,'0') : '') + ap;
+}
+function bne(){
+  var parts = {};
+  new Intl.DateTimeFormat('en-AU',{timeZone:'Australia/Brisbane',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false})
+    .formatToParts(new Date()).forEach(function(p){ parts[p.type]=p.value; });
+  return {
+    day: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(parts.weekday.slice(0,3)),
+    mins: parseInt(parts.hour,10)*60 + parseInt(parts.minute,10),
+    label: parts.hour+':'+parts.minute
+  };
+}
+function renderHours(){
+  $('#hours').innerHTML = C.hours.map(function(h){
+    return '<div><span>'+esc(h.day)+'</span><span>'+
+      (h.closed ? 'Closed' : fmt(toMins(h.open))+' – '+fmt(toMins(h.close)))+'</span></div>';
+  }).join('');
+}
+function updateStatus(){
+  var now = bne();
+  var row = C.hours[(now.day + 6) % 7];              // content starts Monday
+  var dot = $('#dot'), txt = $('#statusText'), clk = $('#clock');
+  if(clk) clk.textContent = now.label + ' Brisbane';
+
+  var openM = row && !row.closed ? toMins(row.open) : null;
+  var closeM = row && !row.closed ? toMins(row.close) : null;
+
+  if(openM !== null && now.mins >= openM && now.mins < closeM){
+    dot.className = 'dot on';
+    txt.textContent = 'Open now until ' + fmt(closeM);
+  } else {
+    dot.className = 'dot off';
+    var hops = 0, idx = (now.day + 6) % 7, next = null, when = '';
+    if(openM !== null && now.mins < openM){ next = openM; when = 'today'; }
+    else {
+      while(hops < 7){
+        hops++; idx = (idx + 1) % 7;
+        if(!C.hours[idx].closed){ next = toMins(C.hours[idx].open); when = hops===1?'tomorrow':C.hours[idx].day; break; }
+      }
+    }
+    txt.textContent = next===null ? 'Closed' : 'Closed — opens ' + when + ' ' + fmt(next);
+  }
+  $$('#hours div').forEach(function(el,i){ el.classList.toggle('today', i === (now.day+6)%7); });
+}
+function nextSlot(){
+  var el = $('#nextSlot'); if(!el) return;
+  if(C.nextSlot && C.nextSlot !== 'auto'){ el.textContent = C.nextSlot; return; }
+  var d = new Date(); d.setDate(d.getDate()+2);
+  while(d.getDay()===0 || d.getDay()===6){ d.setDate(d.getDate()+1); }
+  el.textContent = new Intl.DateTimeFormat('en-AU',{weekday:'long',day:'numeric',month:'long'}).format(d) + ', 8:00am';
+}
+
+/* ---------- symptom picker ---------- */
+function buildSymptoms(){
+  var list = $('.symptoms'), readout = $('#readout');
+  SYMPTOMS.forEach(function(s,i){
+    var b = document.createElement('button');
+    b.type='button'; b.className='symptom'; b.textContent=s.q; b.setAttribute('aria-pressed','false');
+    b.addEventListener('click', function(){
+      $$('.symptom',list).forEach(function(o){ o.setAttribute('aria-pressed','false'); });
+      b.setAttribute('aria-pressed','true');
+      readout.innerHTML =
+        '<div class="pop">'+
+          '<div class="likely">'+esc(s.likely)+'</div>'+
+          '<h3>'+esc(s.cause)+'</h3>'+
+          '<dl><div><dt>What we would check</dt><dd>'+esc(s.check)+'</dd></div>'+
+          '<div><dt>How soon</dt><dd>'+esc(s.urgent)+'</dd></div></dl>'+
+          '<div class="est"><b>'+esc(s.price)+'</b><small>'+esc(s.note)+'</small>'+
+          '<a class="btn sm dark" href="#booking">Book this in</a></div>'+
+        '</div>';
+    });
+    list.appendChild(b);
+  });
+}
+
+/* ---------- booking form ---------- */
+function wireForm(){
+  var form = $('#bookingForm'), btn = $('#submitBtn'), err = $('#formError');
+
+  $('#confirmText').innerHTML = 'Thanks — we\u2019ve got it. Dean or Priya will text you to confirm the time, usually within the hour. If it\u2019s urgent, call <a href="tel:'+C.business.phoneLink+'">'+esc(C.business.phone)+'</a>.';
+
+  function fail(msg){
+    err.textContent = msg; err.classList.add('show');
+    btn.disabled = false; btn.innerHTML = 'Request this booking';
+  }
+  function succeed(){
+    form.style.display='none';
+    $('#confirm').classList.add('show');
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    err.classList.remove('show');
+
+    var name = $('#fname'), phone = $('#fphone');
+    [name,phone].forEach(function(f){ f.classList.remove('bad'); });
+    var bad = null;
+    if(!name.value.trim()) bad = name;
+    else if(phone.value.replace(/\D/g,'').length < 8) bad = phone;
+    if(bad){ bad.classList.add('bad'); bad.focus(); return fail('Please add your name and a mobile we can text.'); }
+
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spin"></span>Sending…';
+
+    var fd = new FormData(form);
+    var lines = [];
+    fd.forEach(function(v,k){ if(k!=='botcheck' && v) lines.push(k+': '+v); });
+
+    if(CONFIG.FORM_ACCESS_KEY){
+      fd.append('access_key', CONFIG.FORM_ACCESS_KEY);
+      fd.append('subject', 'New booking — ' + (fd.get('Vehicle')||'vehicle') + ' — ' + fd.get('Name'));
+      fd.append('from_name', C.business.name + ' website');
+      fetch('https://api.web3forms.com/submit', { method:'POST', body: fd })
+        .then(function(r){ return r.json(); })
+        .then(function(j){ j.success ? succeed() : fail('Something went wrong sending that. Please call ' + C.business.phone + '.'); })
+        .catch(function(){ fail('Couldn\u2019t reach the server. Please call ' + C.business.phone + '.'); });
+    } else {
+      // No key configured yet — hand off to the visitor's email app.
+      var subject = 'Booking request — ' + fd.get('Name');
+      var body = lines.join('\n');
+      window.location.href = 'mailto:' + CONFIG.FALLBACK_EMAIL +
+        '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      setTimeout(succeed, 700);
+    }
+  });
+}
+
+/* ---------- motion ---------- */
+function wireMotion(){
+  /* scroll progress + header + to-top */
+  var bar = $('#scrollbar'), hdr = $('#hdr'), top = $('#toTop'), ticking = false;
+  function onScroll(){
+    if(ticking) return; ticking = true;
+    requestAnimationFrame(function(){
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var y = window.scrollY;
+      bar.style.transform = 'scaleX(' + (max>0 ? y/max : 0) + ')';
+      hdr.classList.toggle('stuck', y > 40);
+      top.classList.toggle('show', y > 900);
+      if(!reduced){
+        var h = $('.hero'); 
+        if(h && y < window.innerHeight) h.style.setProperty('--py', (y*0.18)+'px');
+      }
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+  top.addEventListener('click', function(){ window.scrollTo({top:0, behavior: reduced?'auto':'smooth'}); });
+
+  /* reveal on scroll, staggered within a section */
+  if('IntersectionObserver' in window && !reduced){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(!en.isIntersecting) return;
+        var sibs = Array.prototype.slice.call(en.target.parentNode.children).filter(function(n){ return n.classList.contains('rv'); });
+        var i = Math.min(sibs.indexOf(en.target), 7);
+        en.target.style.transitionDelay = (i * 0.07) + 's';
+        en.target.classList.add('in');
+        if(en.target.classList.contains('rule')) en.target.classList.add('in');
+        io.unobserve(en.target);
+      });
+    }, {rootMargin:'0px 0px -12% 0px', threshold:0.08});
+    $$('.rv').forEach(function(el){ io.observe(el); });
+  } else {
+    $$('.rv').forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* nav highlight */
+  var sections = ['services','logbook','diagnose','pricing','crew'].map(function(id){ return document.getElementById(id); }).filter(Boolean);
+  if('IntersectionObserver' in window){
+    var so = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(!en.isIntersecting) return;
+        $$('#nav a').forEach(function(a){ a.classList.toggle('active', a.getAttribute('href') === '#'+en.target.id); });
+      });
+    }, {rootMargin:'-45% 0px -50% 0px'});
+    sections.forEach(function(s){ so.observe(s); });
+  }
+}
+
+/* count-up numbers */
+function countUp(){
+  $$('[data-count]').forEach(function(el){
+    var target = parseFloat(el.getAttribute('data-count'));
+    if(isNaN(target)) return;
+    var dec = (el.getAttribute('data-count').split('.')[1]||'').length;
+    var pre = el.getAttribute('data-prefix')||'', suf = el.getAttribute('data-suffix')||'';
+    if(reduced){ el.textContent = pre+target.toFixed(dec)+suf; return; }
+    var start = performance.now(), dur = 1100;
+    (function step(now){
+      var p = Math.min((now-start)/dur, 1);
+      var eased = 1 - Math.pow(1-p, 3);
+      el.textContent = pre + (target*eased).toFixed(dec) + suf;
+      if(p < 1) requestAnimationFrame(step);
+    })(start);
+  });
+}
+
+/* roller door */
+function lift(){
+  if(document.body.classList.contains('lifted')) return;
+  document.body.classList.add('lifted');
+  setTimeout(function(){
+    document.body.classList.add('gone','open-seq');
+    $$('.progress i').forEach(function(b){ b.style.width = b.getAttribute('data-fill'); });
+    $$('.hero .rule').forEach(function(r){ r.classList.add('in'); });
+    setTimeout(countUp, 500);
+  }, reduced ? 200 : 1350);
+}
+
+/* ---------- go ---------- */
+loadContent().then(function(loaded){
+  C = loaded;
+  render();
+  buildSymptoms();
+  wireForm();
+  wireMotion();
+  updateStatus(); nextSlot();
+  setInterval(updateStatus, 30000);
+  if(document.readyState === 'complete') setTimeout(lift, reduced?100:600);
+  else window.addEventListener('load', function(){ setTimeout(lift, reduced?100:600); });
+  setTimeout(lift, 3400);
+});
+})();
+</script>
+</body>
+</html>
