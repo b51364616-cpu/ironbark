@@ -14,28 +14,69 @@
     "ais": "12744",
     "membership": "Member, MTA Queensland"
   },
-
   "hero": {
     "headline": "Mechanics who show you the worn part before they replace it.",
     "lede": "Logbook servicing, safety certificates, brakes and diagnostics for every make — done in Ashgrove by the same three people since the day you first came in.",
     "stats": [
-      { "value": "27", "suffix": " yrs", "label": "On Stewart Road since 1998" },
-      { "value": "4.9", "suffix": "", "label": "From 380 Google reviews" },
-      { "value": "12", "suffix": " mth", "label": "Warranty on parts and labour" },
-      { "value": "0", "prefix": "$", "suffix": "", "label": "Pick-up and drop-off within 5 km" }
+      {
+        "value": "27",
+        "suffix": " yrs",
+        "label": "On Stewart Road since 1998"
+      },
+      {
+        "value": "4.9",
+        "suffix": "",
+        "label": "From 380 Google reviews"
+      },
+      {
+        "value": "12",
+        "suffix": " mth",
+        "label": "Warranty on parts and labour"
+      },
+      {
+        "value": "0",
+        "prefix": "$",
+        "suffix": "",
+        "label": "Pick-up and drop-off within 5 km"
+      }
     ]
   },
-
   "bays": [
-    { "no": 1, "vehicle": "Hilux SR5 2019", "job": "120,000 km logbook service", "state": "Road test", "progress": 86, "free": false },
-    { "no": 2, "vehicle": "Golf GTI 2016", "job": "Front pads & rotors", "state": "On the hoist", "progress": 54, "free": false },
-    { "no": 3, "vehicle": "Mazda CX-5 2021", "job": "Check engine light — scan", "state": "Diagnosing", "progress": 31, "free": false },
-    { "no": 4, "vehicle": "Bay free", "job": "Safety certificates, 30 min", "state": "Walk-ins ok", "progress": 0, "free": true }
+    {
+      "no": 1,
+      "vehicle": "Hilux SR5 2019",
+      "job": "120,000 km logbook service",
+      "state": "Road test",
+      "progress": 30,
+      "free": false
+    },
+    {
+      "no": 2,
+      "vehicle": "Golf GTI 2016",
+      "job": "Front pads & rotors",
+      "state": "On the hoist",
+      "progress": 54,
+      "free": false
+    },
+    {
+      "no": 3,
+      "vehicle": "Mazda CX-5 2021",
+      "job": "Check engine light — scan",
+      "state": "Diagnosing",
+      "progress": 38,
+      "free": false
+    },
+    {
+      "no": 4,
+      "vehicle": "Bay free",
+      "job": "Safety certificates, 30 min",
+      "state": "Walk-ins ok",
+      "progress": 0,
+      "free": true
+    }
   ],
-
   "nextSlot": "auto",
   "afterHoursNote": "Drop your keys in the after-hours slot any time before 7am.",
-
   "strip": [
     "Approved Inspection Station #12744",
     "New car warranty protected",
@@ -45,68 +86,134 @@
     "12 month warranty on all work",
     "Same-day safety certificates"
   ],
-
   "hours": [
-    { "day": "Monday",    "open": "07:00", "close": "17:30", "closed": false },
-    { "day": "Tuesday",   "open": "07:00", "close": "17:30", "closed": false },
-    { "day": "Wednesday", "open": "07:00", "close": "17:30", "closed": false },
-    { "day": "Thursday",  "open": "07:00", "close": "17:30", "closed": false },
-    { "day": "Friday",    "open": "07:00", "close": "17:30", "closed": false },
-    { "day": "Saturday",  "open": "08:00", "close": "12:00", "closed": false },
-    { "day": "Sunday",    "open": "",      "close": "",      "closed": true  }
+    {
+      "day": "Monday",
+      "open": "07:00",
+      "close": "17:30",
+      "closed": false
+    },
+    {
+      "day": "Tuesday",
+      "open": "07:00",
+      "close": "17:30",
+      "closed": false
+    },
+    {
+      "day": "Wednesday",
+      "open": "07:00",
+      "close": "17:30",
+      "closed": false
+    },
+    {
+      "day": "Thursday",
+      "open": "07:00",
+      "close": "17:30",
+      "closed": false
+    },
+    {
+      "day": "Friday",
+      "open": "07:00",
+      "close": "17:30",
+      "closed": false
+    },
+    {
+      "day": "Saturday",
+      "open": "08:00",
+      "close": "12:00",
+      "closed": false
+    },
+    {
+      "day": "Sunday",
+      "open": "",
+      "close": "",
+      "closed": true
+    }
   ],
-
   "services": [
     {
       "title": "Logbook servicing",
       "blurb": "Every item the manufacturer's schedule asks for, stamped in your book with genuine or equivalent-quality parts. Your new car warranty stays exactly as it is.",
-      "price": "$265", "priceNote": "from",
-      "tags": ["All makes", "Book stamped", "2–3 hours"]
+      "price": "$265",
+      "priceNote": "from",
+      "tags": [
+        "All makes",
+        "Book stamped",
+        "2–3 hours"
+      ]
     },
     {
       "title": "Safety certificate (roadworthy)",
       "blurb": "Queensland safety certificate for selling or re-registering. Booked in half-hour slots, and if something fails we'll quote the repair before you decide.",
-      "price": "$89", "priceNote": "fixed fee",
-      "tags": ["Same day*", "30 minutes", "AIS #12744"]
+      "price": "$89",
+      "priceNote": "fixed fee",
+      "tags": [
+        "Same day*",
+        "30 minutes",
+        "AIS #12744"
+      ]
     },
     {
       "title": "Brakes",
       "blurb": "Pads, rotors, calipers, lines and fluid. We machine rotors in-house where they're still within tolerance, which usually saves a few hundred dollars.",
-      "price": "$420", "priceNote": "from, front axle",
-      "tags": ["Front pads & machining", "Same day"]
+      "price": "$420",
+      "priceNote": "from, front axle",
+      "tags": [
+        "Front pads & machining",
+        "Same day"
+      ]
     },
     {
       "title": "Diagnostics and check engine lights",
       "blurb": "Factory-level scan tools for most makes, plus an actual mechanic reading the live data rather than just quoting the code back at you. Fee comes off the repair if you go ahead.",
-      "price": "$110", "priceNote": "diagnostic fee",
-      "tags": ["Credited to repair*", "45 minutes"]
+      "price": "$110",
+      "priceNote": "diagnostic fee",
+      "tags": [
+        "Credited to repair*",
+        "45 minutes"
+      ]
     },
     {
       "title": "Air conditioning",
       "blurb": "Regas, leak testing with dye, condenser and compressor work. Licensed to handle both R134a and the newer R1234yf refrigerant.",
-      "price": "$189", "priceNote": "from",
-      "tags": ["Regas from $189", "1 hour"]
+      "price": "$189",
+      "priceNote": "from",
+      "tags": [
+        "Regas from $189",
+        "1 hour"
+      ]
     },
     {
       "title": "Clutch and transmission",
       "blurb": "Automatic transmission fluid and filter services, clutch replacement, and CV joint and driveshaft repairs. Big jobs get a written quote and a courtesy car.",
-      "price": "$340", "priceNote": "from",
-      "tags": ["Auto service $340", "Clutch from $1,290"]
+      "price": "$340",
+      "priceNote": "from",
+      "tags": [
+        "Auto service $340",
+        "Clutch from $1,290"
+      ]
     },
     {
       "title": "Tyres, wheels and suspension",
       "blurb": "Fitting, balancing, four-wheel alignment on a Hunter rig, plus shocks, bushes and steering components. We'll show you the alignment printout before and after.",
-      "price": "$95", "priceNote": "from",
-      "tags": ["Alignment $95", "1 hour"]
+      "price": "$95",
+      "priceNote": "from",
+      "tags": [
+        "Alignment $95",
+        "1 hour"
+      ]
     },
     {
       "title": "Pre-purchase inspections",
       "blurb": "Before you buy someone else's problem: a 120-point check, a scan for stored fault codes, and a phone call from the mechanic who inspected it. We travel within 15 km.",
-      "price": "$249", "priceNote": "flat",
-      "tags": ["Mobile available*", "90 minutes"]
+      "price": "$249",
+      "priceNote": "flat",
+      "tags": [
+        "Mobile available*",
+        "90 minutes"
+      ]
     }
   ],
-
   "tiers": [
     {
       "name": "Interim service",
@@ -154,7 +261,6 @@
       ]
     }
   ],
-
   "team": [
     {
       "initials": "DW",
@@ -175,7 +281,6 @@
       "bio": "Fifteen years on Volkswagen, Audi and BMW, including timing chains and DSG work most independents send away. Brings a very serious coffee machine to the staff room."
     }
   ],
-
   "reviews": [
     {
       "stars": 5,
@@ -199,7 +304,6 @@
       "plate": "576 TJD"
     }
   ],
-
   "faq": [
     {
       "q": "Will servicing here void my new car warranty?",
@@ -226,6 +330,13 @@
       "a": "Tell us. We'll separate the list into what makes the car unsafe, what will get worse and more expensive if it waits, and what can genuinely be left for six months. Afterpay is available on jobs over $300."
     }
   ],
-
-  "suburbs": ["Ashgrove", "The Gap", "Enoggera", "Newmarket", "Bardon", "Alderley", "Everton Park"]
+  "suburbs": [
+    "Ashgrove",
+    "The Gap",
+    "Enoggera",
+    "Newmarket",
+    "Bardon",
+    "Alderley",
+    "Everton Park"
+  ]
 }
