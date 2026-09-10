@@ -20,7 +20,7 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:'Archivo',sys
 h1,h2,h3{font-variation-settings:'wdth' 84,'wght' 800;line-height:1.05;margin:0}
 h1{font-size:1.4rem}h2{font-size:1.25rem}h3{font-size:1rem;font-variation-settings:'wdth' 90,'wght' 750}
 :focus-visible{outline:3px solid var(--amber);outline-offset:2px}
-
+ 
 /* login */
 #gate{position:fixed;inset:0;background:var(--ink);display:grid;place-items:center;z-index:50;padding:1.5rem}
 #gate .box{width:100%;max-width:360px;text-align:center}
@@ -30,7 +30,7 @@ h1{font-size:1.4rem}h2{font-size:1.25rem}h3{font-size:1rem;font-variation-settin
 #gate input:focus{border-color:var(--amber);outline:none}
 #gate .err{color:#FF8E8E;font-size:.85rem;margin-top:.75rem;min-height:1.2em}
 .cog{width:44px;height:44px;fill:var(--amber);margin-bottom:1rem}
-
+ 
 /* chrome */
 header{position:sticky;top:0;z-index:20;background:var(--ink);color:var(--concrete);border-bottom:2px solid var(--amber)}
 .bar{max-width:1500px;margin:0 auto;padding:.75rem 1.25rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
@@ -38,7 +38,7 @@ header{position:sticky;top:0;z-index:20;background:var(--ink);color:var(--concre
 .bar h1 small{display:block;font-size:.7rem;color:var(--steel);letter-spacing:.12em;font-variation-settings:'wdth' 100,'wght' 500}
 .saved{font-size:.8rem;color:var(--steel);min-width:9rem;text-align:right}
 .saved.ok{color:var(--go)}
-
+ 
 .btn{display:inline-flex;align-items:center;gap:.45rem;padding:.6rem 1.05rem;border:none;cursor:pointer;font-family:inherit;font-size:.87rem;font-variation-settings:'wdth' 92,'wght' 700;background:var(--amber);color:var(--ink);text-decoration:none;transition:filter .15s,transform .15s}
 .btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
 .btn.ghost{background:transparent;color:var(--concrete);box-shadow:inset 0 0 0 1.5px rgba(222,220,214,.35)}
@@ -47,23 +47,23 @@ header{position:sticky;top:0;z-index:20;background:var(--ink);color:var(--concre
 .btn.danger{background:transparent;color:var(--warn);box-shadow:inset 0 0 0 1.5px rgba(196,45,45,.4)}
 .btn.dark{background:var(--ink);color:var(--paper)}
 .btn[disabled]{opacity:.5;pointer-events:none}
-
+ 
 /* tabs */
 .tabs{background:var(--ink-2);border-bottom:1px solid rgba(222,220,214,.12);overflow-x:auto}
 .tabs-in{max-width:1500px;margin:0 auto;display:flex;padding:0 1.25rem}
 .tab{background:none;border:none;cursor:pointer;font-family:inherit;font-size:.86rem;color:var(--steel-dim);padding:.85rem 1rem;white-space:nowrap;border-bottom:3px solid transparent;font-variation-settings:'wght' 600}
 .tab:hover{color:#fff}
 .tab.on{color:var(--amber);border-bottom-color:var(--amber)}
-
+ 
 /* layout */
 main{max-width:1500px;margin:0 auto;padding:1.5rem 1.25rem 5rem;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,460px);gap:1.75rem;align-items:start}
 @media (max-width:1150px){main{grid-template-columns:1fr}.preview{display:none}}
-
+ 
 .panel{display:none}
 .panel.on{display:block}
 .hint{background:#fff;border-left:3px solid var(--amber);padding:.8rem 1rem;font-size:.87rem;color:#4A5A66;margin-bottom:1.25rem}
 .hint b{color:var(--ink)}
-
+ 
 .item{background:#fff;border:1px solid rgba(21,34,44,.14);padding:1.1rem;margin-bottom:.85rem;position:relative}
 .item-head{display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem}
 .item-head .n{width:24px;height:24px;display:grid;place-items:center;background:var(--ink);color:var(--amber);font-size:.75rem;font-variation-settings:'wght' 800;flex:none}
@@ -71,7 +71,7 @@ main{max-width:1500px;margin:0 auto;padding:1.5rem 1.25rem 5rem;display:grid;gri
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
 .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem}
 @media (max-width:700px){.grid2,.grid3{grid-template-columns:1fr}}
-
+ 
 label{display:block;font-size:.74rem;color:#5E6E7A;margin-bottom:.25rem;font-variation-settings:'wght' 650;letter-spacing:.02em}
 input[type=text],input[type=tel],input[type=email],input[type=url],input[type=time],select,textarea{
   width:100%;padding:.55rem .65rem;border:1px solid rgba(21,34,44,.22);background:var(--paper);
@@ -82,25 +82,25 @@ textarea{resize:vertical;min-height:74px;line-height:1.5}
 .fld{margin-bottom:.75rem}
 .chk{display:flex;align-items:center;gap:.5rem;font-size:.88rem;margin-top:1.4rem}
 .chk input{width:17px;height:17px;accent-color:var(--amber-deep)}
-
+ 
 input[type=range]{width:100%;accent-color:var(--amber-deep)}
 .rangeval{font-variation-settings:'wght' 800;font-size:.9rem;color:var(--amber-deep);min-width:3rem;text-align:right}
 .rangewrap{display:flex;align-items:center;gap:.75rem}
-
+ 
 .tagrow{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.4rem}
 .taged{display:flex;align-items:center;gap:.3rem;background:var(--concrete);padding:.2rem .3rem .2rem .55rem;font-size:.78rem}
 .taged button{border:none;background:none;cursor:pointer;color:#5E6E7A;font-size:1rem;line-height:1;padding:0 .2rem}
 .taged button:hover{color:var(--warn)}
-
+ 
 .addrow{display:flex;gap:.5rem;margin-top:.6rem}
 .addrow input{flex:1}
-
+ 
 .listrow{display:flex;gap:.5rem;margin-bottom:.4rem;align-items:center}
 .listrow input{flex:1}
-
+ 
 .hoursrow{display:grid;grid-template-columns:110px 1fr 1fr 100px;gap:.6rem;align-items:end;margin-bottom:.5rem}
 @media (max-width:700px){.hoursrow{grid-template-columns:1fr 1fr}}
-
+ 
 /* preview */
 .preview{position:sticky;top:120px}
 .preview h3{margin-bottom:.6rem}
@@ -108,13 +108,13 @@ input[type=range]{width:100%;accent-color:var(--amber-deep)}
 .phone iframe{width:100%;height:620px;border:none;display:block;background:var(--paper)}
 .prevbar{display:flex;gap:.5rem;margin-bottom:.6rem;align-items:center}
 .prevbar span{font-size:.78rem;color:#5E6E7A;margin-right:auto}
-
+ 
 /* save bar */
 .savebar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--ink);border-top:2px solid var(--amber);padding:.75rem 1.25rem}
 .savebar-in{max-width:1500px;margin:0 auto;display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
 .savebar .msg{color:var(--steel-dim);font-size:.83rem;margin-right:auto}
 .savebar .msg b{color:var(--amber)}
-
+ 
 /* modal */
 .modal{position:fixed;inset:0;background:rgba(15,26,34,.72);display:none;place-items:center;z-index:60;padding:1.25rem}
 .modal.on{display:grid}
@@ -132,7 +132,7 @@ pre{background:var(--ink);color:var(--concrete);padding:1rem;overflow:auto;max-h
 </style>
 </head>
 <body>
-
+ 
 <div id="gate">
   <div class="box">
     <svg class="cog" viewBox="0 0 24 24"><path d="M12 8.4a3.6 3.6 0 1 0 0 7.2 3.6 3.6 0 0 0 0-7.2Zm9.1 5.2.1-1.6-.1-1.6-2.1-.4a7 7 0 0 0-.7-1.7l1.2-1.8a9.6 9.6 0 0 0-2.2-2.2l-1.8 1.2a7 7 0 0 0-1.7-.7L13.4 2a9.7 9.7 0 0 0-2.8 0l-.4 2.1a7 7 0 0 0-1.7.7L6.7 3.6a9.6 9.6 0 0 0-2.2 2.2l1.2 1.8a7 7 0 0 0-.7 1.7L2.9 10a9.7 9.7 0 0 0 0 2.8l2.1.4c.16.6.4 1.17.7 1.7l-1.2 1.8a9.6 9.6 0 0 0 2.2 2.2l1.8-1.2c.53.3 1.1.54 1.7.7l.4 2.1a9.7 9.7 0 0 0 2.8 0l.4-2.1a7 7 0 0 0 1.7-.7l1.8 1.2a9.6 9.6 0 0 0 2.2-2.2l-1.2-1.8c.3-.53.54-1.1.7-1.7l2.1-.4Z"/></svg>
@@ -142,7 +142,7 @@ pre{background:var(--ink);color:var(--concrete);padding:1rem;overflow:auto;max-h
     <div class="err" id="gateErr"></div>
   </div>
 </div>
-
+ 
 <header>
   <div class="bar">
     <h1>Ironbark Motor Works<small>WEBSITE EDITOR</small></h1>
@@ -150,9 +150,9 @@ pre{background:var(--ink);color:var(--concrete);padding:1rem;overflow:auto;max-h
     <a class="btn ghost sm" href="index.html" target="_blank">View site</a>
   </div>
 </header>
-
+ 
 <div class="tabs"><div class="tabs-in" id="tabs"></div></div>
-
+ 
 <main>
   <div>
     <section class="panel on" data-panel="bays">
@@ -163,7 +163,7 @@ pre{background:var(--ink);color:var(--concrete);padding:1rem;overflow:auto;max-h
         <div class="fld"><label>After-hours note</label><input type="text" id="afterHoursNote"></div>
       </div>
     </section>
-
+ 
     <section class="panel" data-panel="details">
       <div class="hint">Phone, address and hours. Changing hours here also changes the "Open now / Closed" light in the top corner of the site.</div>
       <div class="item">
@@ -196,7 +196,7 @@ pre{background:var(--ink);color:var(--concrete);padding:1rem;overflow:auto;max-h
         <div id="stripEditor"></div>
       </div>
     </section>
-
+ 
     <section class="panel" data-panel="hero">
       <div class="hint">The first thing anyone reads. Keep the headline to one sentence about what makes you different, not "Welcome to our website".</div>
       <div class="item">
@@ -208,54 +208,48 @@ pre{background:var(--ink);color:var(--concrete);padding:1rem;overflow:auto;max-h
         <div id="statsEditor"></div>
       </div>
     </section>
-
+ 
     <section class="panel" data-panel="services">
       <div class="hint">Add a <code>*</code> at the end of a tag to make it stand out in dark. Prices show as typed, so include the dollar sign.</div>
       <div id="servicesEditor"></div>
       <button class="btn dark" id="addService">Add a service</button>
     </section>
-
+ 
     <section class="panel" data-panel="pricing">
       <div class="hint">Three service levels. One can be flagged as most popular.</div>
       <div id="tiersEditor"></div>
     </section>
-
+ 
     <section class="panel" data-panel="team">
       <div class="hint">Initials show on the card. A photo works better — send them to your web person and they'll swap the initials for the picture.</div>
       <div id="teamEditor"></div>
       <button class="btn dark" id="addPerson">Add a person</button>
     </section>
-
+ 
     <section class="panel" data-panel="reviews">
       <div class="hint">Only paste reviews people actually left you. Copy them word for word from Google.</div>
       <div id="reviewsEditor"></div>
       <button class="btn dark" id="addReview">Add a review</button>
     </section>
-
+ 
     <section class="panel" data-panel="faq">
       <div class="hint">Every question here is one less phone call. Add the ones you answer over and over.</div>
       <div id="faqEditor"></div>
       <button class="btn dark" id="addFaq">Add a question</button>
     </section>
-
+ 
     <section class="panel" data-panel="publish">
       <div class="hint">Changes are saved on this device as you type. To put them on the live website, publish.</div>
-
+ 
       <div class="item">
         <div class="item-head"><h3>Publish to the live site</h3></div>
-        <p style="font-size:.9rem;color:#4A5A66">Connected to GitHub, this writes the change straight to your site and it goes live in under a minute.</p>
-        <div class="grid2">
-          <div class="fld"><label>GitHub owner / repo</label><input type="text" id="ghRepo" placeholder="yourname/ironbark-site"></div>
-          <div class="fld"><label>Branch</label><input type="text" id="ghBranch" placeholder="main"></div>
-        </div>
-        <div class="fld"><label>Access token (fine-grained, Contents: read &amp; write, this repo only)</label><input type="password" id="ghToken" placeholder="github_pat_…"></div>
+        <p style="font-size:.9rem;color:#4A5A66">Everything above saves on this device as you go. When you're happy with it, hit the button below — it's usually live on the real site within about a minute.</p>
         <div class="modal-actions">
           <button class="btn" id="ghPublish">Publish now</button>
-          <button class="btn dark" id="ghSaveCreds">Remember on this device</button>
         </div>
         <p id="ghStatus" style="font-size:.87rem;margin-top:.9rem"></p>
       </div>
-
+ 
       <div class="item">
         <div class="item-head"><h3>Or send the file to your web person</h3></div>
         <p style="font-size:.9rem;color:#4A5A66">Download the updated content file and email it over. They'll upload it for you.</p>
@@ -267,13 +261,13 @@ pre{background:var(--ink);color:var(--concrete);padding:1rem;overflow:auto;max-h
       </div>
     </section>
   </div>
-
+ 
   <aside class="preview">
     <div class="prevbar"><span>Live preview</span><button class="btn ghost sm dark" id="refreshPrev">Refresh</button></div>
     <div class="phone"><iframe id="prev" title="Site preview" src="index.html"></iframe></div>
   </aside>
 </main>
-
+ 
 <div class="savebar">
   <div class="savebar-in">
     <span class="msg" id="saveMsg">Changes save automatically on this device. Go to <b>Publish</b> to put them live.</span>
@@ -281,13 +275,13 @@ pre{background:var(--ink);color:var(--concrete);padding:1rem;overflow:auto;max-h
     <button class="btn" id="jumpPublish">Publish changes</button>
   </div>
 </div>
-
+ 
 <div class="modal" id="modal"><div class="modal-box" id="modalBox"></div></div>
-
+ 
 <script>
 (function(){
 'use strict';
-
+ 
 /* ---------------------------------------------------------------
    Passcode. This gate stops a customer wandering in — it is NOT
    real security, because anyone can read this file. For a site
@@ -295,11 +289,10 @@ pre{background:var(--ink);color:var(--concrete);padding:1rem;overflow:auto;max-h
    (Netlify Identity, Cloudflare Access, or HTTP basic auth).
    --------------------------------------------------------------- */
 var PASSCODE = '4060';
-
+ 
 var STORE = 'ironbark-content';
-var CREDS = 'ironbark-gh';
 var data = null, original = null;
-
+ 
 function $(s,r){ return (r||document).querySelector(s); }
 function $$(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); }
 function esc(t){ var d=document.createElement('div'); d.textContent=t==null?'':String(t); return d.innerHTML; }
@@ -308,7 +301,7 @@ function put(o,p,v){
   var ks=p.split('.'), last=ks.pop();
   ks.reduce(function(a,k){ return a[k]=a[k]||{}; }, o)[last]=v;
 }
-
+ 
 /* ---------- gate ---------- */
 var gate = $('#gate'), pass = $('#pass');
 if(sessionStorage.getItem('ironbark-auth')==='1'){ gate.style.display='none'; }
@@ -323,7 +316,7 @@ pass.addEventListener('keydown', function(e){
     pass.value=''; pass.focus();
   }
 });
-
+ 
 /* ---------- load ---------- */
 function boot(){
   fetch('content.json',{cache:'no-store'})
@@ -346,9 +339,9 @@ function start(j){
   var local=null;
   try{ local=JSON.parse(localStorage.getItem(STORE)); }catch(e){}
   data = local && local.business ? local : j;
-  buildTabs(); bindFields(); renderAll(); loadCreds();
+  buildTabs(); bindFields(); renderAll();
 }
-
+ 
 /* ---------- tabs ---------- */
 var TABS = [
   ['bays','In the workshop'],['details','Details & hours'],['hero','Front page'],
@@ -369,7 +362,7 @@ function buildTabs(){
   });
 }
 function goTab(name){ var b = $('.tab[data-tab="'+name+'"]'); if(b) b.click(); }
-
+ 
 /* ---------- save ---------- */
 var saveTimer=null;
 function save(){
@@ -384,7 +377,7 @@ function refreshPreview(){
 $('#refreshPrev').addEventListener('click', refreshPreview);
 $('#previewBtn').addEventListener('click', function(){ window.open('index.html','_blank'); });
 $('#jumpPublish').addEventListener('click', function(){ goTab('publish'); });
-
+ 
 /* ---------- simple bound fields ---------- */
 function bindFields(){
   $$('[data-path]').forEach(function(el){
@@ -397,7 +390,7 @@ function bindFields(){
   $('#afterHoursNote').value = data.afterHoursNote||'';
   $('#afterHoursNote').addEventListener('input', function(){ data.afterHoursNote=this.value; save(); });
 }
-
+ 
 /* ---------- generic helpers ---------- */
 function field(label, val, oninput, type){
   var w=document.createElement('div'); w.className='fld';
@@ -438,7 +431,7 @@ function stringList(container, arr, placeholder, onChange){
   ni.addEventListener('keydown', function(e){ if(e.key==='Enter'){ e.preventDefault(); commit(); } });
   add.appendChild(ni); add.appendChild(nb); container.appendChild(add);
 }
-
+ 
 /* ---------- bays ---------- */
 function renderBays(){
   var c=$('#baysEditor'); c.innerHTML='';
@@ -448,7 +441,7 @@ function renderBays(){
     g.appendChild(field('Vehicle', bay.vehicle, function(v){ bay.vehicle=v; }));
     g.appendChild(field('Job', bay.job, function(v){ bay.job=v; }));
     d.appendChild(g);
-
+ 
     var g2=document.createElement('div'); g2.className='grid2';
     var st=document.createElement('div'); st.className='fld';
     st.innerHTML='<label>Status</label>';
@@ -458,7 +451,7 @@ function renderBays(){
     });
     sel.addEventListener('change', function(){ bay.state=sel.value; save(); });
     st.appendChild(sel); g2.appendChild(st);
-
+ 
     var pr=document.createElement('div'); pr.className='fld';
     pr.innerHTML='<label>How far through</label>';
     var rw=document.createElement('div'); rw.className='rangewrap';
@@ -467,13 +460,13 @@ function renderBays(){
     rg.addEventListener('input', function(){ bay.progress=+rg.value; rv.textContent=rg.value+'%'; save(); });
     rw.appendChild(rg); rw.appendChild(rv); pr.appendChild(rw); g2.appendChild(pr);
     d.appendChild(g2);
-
+ 
     var ck=document.createElement('label'); ck.className='chk';
     var cb=document.createElement('input'); cb.type='checkbox'; cb.checked=!!bay.free;
     cb.addEventListener('change', function(){ bay.free=cb.checked; save(); });
     ck.appendChild(cb); ck.appendChild(document.createTextNode('This bay is free — show it in green'));
     d.appendChild(ck);
-
+ 
     c.appendChild(d);
   });
   var add=document.createElement('button'); add.className='btn dark'; add.textContent='Add a bay';
@@ -483,7 +476,7 @@ function renderBays(){
   });
   c.appendChild(add);
 }
-
+ 
 /* ---------- hours ---------- */
 function renderHours(){
   var c=$('#hoursEditor'); c.innerHTML='';
@@ -508,7 +501,7 @@ function renderHours(){
     c.appendChild(row);
   });
 }
-
+ 
 /* ---------- hero stats ---------- */
 function renderStats(){
   var c=$('#statsEditor'); c.innerHTML='';
@@ -520,7 +513,7 @@ function renderStats(){
     c.appendChild(d);
   });
 }
-
+ 
 /* ---------- services ---------- */
 function renderServices(){
   var c=$('#servicesEditor'); c.innerHTML='';
@@ -545,7 +538,7 @@ $('#addService').addEventListener('click', function(){
   data.services.push({title:'New service',blurb:'',price:'$0',priceNote:'from',tags:[]});
   renderServices(); save();
 });
-
+ 
 /* ---------- tiers ---------- */
 function renderTiers(){
   var c=$('#tiersEditor'); c.innerHTML='';
@@ -573,7 +566,7 @@ function renderTiers(){
     c.appendChild(d);
   });
 }
-
+ 
 /* ---------- team ---------- */
 function renderTeam(){
   var c=$('#teamEditor'); c.innerHTML='';
@@ -591,7 +584,7 @@ function renderTeam(){
 $('#addPerson').addEventListener('click', function(){
   data.team.push({initials:'AB',name:'New person',role:'',bio:''}); renderTeam(); save();
 });
-
+ 
 /* ---------- reviews ---------- */
 function renderReviews(){
   var c=$('#reviewsEditor'); c.innerHTML='';
@@ -609,7 +602,7 @@ function renderReviews(){
 $('#addReview').addEventListener('click', function(){
   data.reviews.push({stars:5,text:'',name:'',suburb:'',plate:''}); renderReviews(); save();
 });
-
+ 
 /* ---------- faq ---------- */
 function renderFaq(){
   var c=$('#faqEditor'); c.innerHTML='';
@@ -623,17 +616,17 @@ function renderFaq(){
 $('#addFaq').addEventListener('click', function(){
   data.faq.push({q:'',a:''}); renderFaq(); save();
 });
-
+ 
 /* ---------- suburbs / strip ---------- */
 function renderSuburbs(){ (function redo(){ stringList($('#suburbsEditor'), data.suburbs, 'Add a suburb', redo); })(); }
 function renderStrip(){ (function redo(){ stringList($('#stripEditor'), data.strip, 'Add a banner line', redo); })(); }
-
+ 
 function renderAll(){
   renderBays(); renderHours(); renderStats(); renderServices();
   renderTiers(); renderTeam(); renderReviews(); renderFaq();
   renderSuburbs(); renderStrip();
 }
-
+ 
 /* ---------- download / copy / reset ---------- */
 function json(){ return JSON.stringify(data, null, 2); }
 $('#download').addEventListener('click', function(){
@@ -657,56 +650,45 @@ $('#reset').addEventListener('click', function(){
   });
   $('#cancelReset').addEventListener('click', closeModal);
 });
-
-/* ---------- GitHub publish ---------- */
-function loadCreds(){
-  var c=null; try{ c=JSON.parse(localStorage.getItem(CREDS)); }catch(e){}
-  if(!c) return;
-  $('#ghRepo').value=c.repo||''; $('#ghBranch').value=c.branch||'main'; $('#ghToken').value=c.token||'';
-}
-$('#ghSaveCreds').addEventListener('click', function(){
-  localStorage.setItem(CREDS, JSON.stringify({repo:$('#ghRepo').value.trim(), branch:($('#ghBranch').value.trim()||'main'), token:$('#ghToken').value.trim()}));
-  $('#ghStatus').innerHTML='<span class="ok">Saved on this device.</span>';
-});
+ 
+/* ---------- publish ----------
+   The customer only ever sees this button. Everything about GitHub —
+   the repo, the branch, the token — lives server-side in the
+   publish.js function, set up once by you when you hand the site over. */
 $('#ghPublish').addEventListener('click', function(){
-  var repo=$('#ghRepo').value.trim(), branch=$('#ghBranch').value.trim()||'main', token=$('#ghToken').value.trim();
-  var st=$('#ghStatus');
-  if(!repo || !token){ st.innerHTML='<span class="bad">Fill in the repo and the token first.</span>'; return; }
-  st.textContent='Publishing…';
-  var api='https://api.github.com/repos/'+repo+'/contents/content.json';
-  var headers={ 'Authorization':'Bearer '+token, 'Accept':'application/vnd.github+json' };
-
-  fetch(api+'?ref='+encodeURIComponent(branch),{headers:headers})
-    .then(function(r){ return r.ok ? r.json() : (r.status===404 ? {} : Promise.reject(r.status)); })
-    .then(function(existing){
-      var bytes=new TextEncoder().encode(json());
-      var bin=''; bytes.forEach(function(b){ bin+=String.fromCharCode(b); });
-      return fetch(api,{
-        method:'PUT', headers:headers,
-        body: JSON.stringify({
-          message:'Update site content from the workshop editor',
-          content: btoa(bin),
-          branch: branch,
-          sha: existing.sha || undefined
-        })
-      });
-    })
-    .then(function(r){ return r.ok ? r.json() : r.json().then(function(j){ return Promise.reject(j.message||r.status); }); })
-    .then(function(){
+  var st=$('#ghStatus'), btn=$('#ghPublish');
+  st.textContent=''; btn.disabled=true; btn.innerHTML='<span class="spin" style="border-top-color:var(--ink)"></span>Publishing…';
+ 
+  fetch('/.netlify/functions/publish', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ passcode: PASSCODE, content: data })
+  })
+  .then(function(r){ return r.json().then(function(j){ return {ok:r.ok, body:j}; }); })
+  .then(function(res){
+    btn.disabled=false; btn.innerHTML='Publish now';
+    if(res.ok && res.body.ok){
       st.innerHTML='<span class="ok">Published. The live site updates in about a minute.</span>';
       original=JSON.parse(JSON.stringify(data));
-    })
-    .catch(function(e){ st.innerHTML='<span class="bad">Didn\u2019t work: '+esc(e)+'</span>'; });
+    } else {
+      st.innerHTML='<span class="bad">'+esc(res.body.error||'Something went wrong')+'</span><br>Use \u201cDownload content.json\u201d below and send it to your web person instead.';
+    }
+  })
+  .catch(function(){
+    btn.disabled=false; btn.innerHTML='Publish now';
+    st.innerHTML='<span class="bad">Couldn\u2019t reach the publish service.</span><br>Use \u201cDownload content.json\u201d below and send it to your web person instead.';
+  });
 });
-
+ 
 /* ---------- modal ---------- */
 function showModal(html){ $('#modalBox').innerHTML=html; $('#modal').classList.add('on'); }
 function closeModal(){ $('#modal').classList.remove('on'); }
 $('#modal').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
 document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModal(); });
-
+ 
 boot();
 })();
 </script>
 </body>
 </html>
+ 
